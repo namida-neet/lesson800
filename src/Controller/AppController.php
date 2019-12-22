@@ -51,5 +51,18 @@ class AppController extends Controller
          * see https://book.cakephp.org/3.0/en/controllers/components/security.html
          */
         //$this->loadComponent('Security');
+
+        $this->loadComponent('Auth', [
+            'loginRedirect' => [
+                'controller' => 'Pages',
+                'action' => 'display', // 変更する必要性を感じる
+                'home',
+            ],
+        ]);
+    }
+
+    public function beforeFilter(Event $event)
+    {
+        $this->Auth->allow(['index', 'view', 'display']); // 変更する必要性を感じる
     }
 }
