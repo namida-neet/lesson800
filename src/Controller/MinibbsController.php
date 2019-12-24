@@ -41,8 +41,6 @@ class MinibbsController extends MinibbsBaseController
             'limit' => '2', // 変える
         ]);
 
-        // 返信・削除・リポスト・ファボ・星はどうすればいいんだ
-
         $this->set(compact('minibbsPosts'));
     }
 
