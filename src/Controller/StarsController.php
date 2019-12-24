@@ -10,7 +10,7 @@ use App\Controller\AppController;
  *
  * @method \App\Model\Entity\Star[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
-class StarsController extends AppController
+class StarsController extends MinibbsBaseController
 {
     /**
      * Index method

@@ -10,7 +10,7 @@ use App\Controller\AppController;
  *
  * @method \App\Model\Entity\Favorite[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
-class FavoritesController extends AppController
+class FavoritesController extends MinibbsBaseController
 {
     /**
      * Index method
