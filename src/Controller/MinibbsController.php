@@ -34,6 +34,7 @@ class MinibbsController extends MinibbsBaseController
 
         // メッセージの表示
         $minibbsPosts = $this->paginate('Posts', [
+            'contain' => ['Users'],
             'order' => [
                 'id' => 'desc', // 変える
             ],
