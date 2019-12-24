@@ -1,13 +1,20 @@
 <p>いまログインしているのは<?= $authuser['username'] ?>です</p>
 <p><?= $this->Html->link('ログアウト', ['action' => 'logout']) ?></p>
-<p>
-メッセージの投稿フォームが必要<br>
-メッセージの投稿フォームが必要<br>
-メッセージの投稿フォームが必要<br>
-メッセージの投稿フォームが必要<br>
-メッセージの投稿フォームが必要<br>
-メッセージの投稿フォームが必要<br>
-</p>
+
+<?= $this->Form->create($postEntity, [
+    'type' => 'post',
+    'url' => [
+        'controller' => 'Minibbs',
+        'action' => 'index',
+    ],
+]) ?>
+<fieldset>
+<?= $this->Form->hidden('Posts.user_id', ['value' => $authuser['id']]) ?>
+<?= $this->Form->control('Posts.messages') ?>
+<?= $this->Form->submit('かきこむ！！！') ?>
+</fieldset>
+<?= $this->Form->end() ?>
+
 <div>
     <ul>
     <?php foreach ($minibbsPosts as $post) : ?>

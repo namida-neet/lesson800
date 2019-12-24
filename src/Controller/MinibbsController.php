@@ -6,6 +6,8 @@ use App\Controller\AppController;
 use Cake\Event\Event;
 use Exception;
 
+use Cake\I18n\Time;
+
 class MinibbsController extends MinibbsBaseController
 {
     public $useTable = false;
@@ -30,7 +32,20 @@ class MinibbsController extends MinibbsBaseController
     // トップページ
     public function index()
     {
-        // メッセージの投稿フォームが必要
+        // メッセージの投稿フォーム
+        if ($this->request->is('post')) {
+            $data = $this->request->data['Posts'];
+            $postEntity = $this->Posts->newEntity($data);
+            $postEntity->created = new Time(date('Y-m-d H:i:s'));
+            if ($this->Posts->save($postEntity)) {
+                $this->Flash->success('かきこんだよ！Flashで表示しているメッセージだよ！');
+                return $this->redirect(['action' => 'index']);
+            }
+            $this->Flash->error('かきこみに失敗したよ！');
+        } else {
+            $postEntity = $this->Posts->newEntity();
+        }
+        $this->set(compact('postEntity'));
 
         // メッセージの表示
         $minibbsPosts = $this->paginate('Posts', [
