@@ -48,17 +48,23 @@ class PostsTable extends Table
             'foreignKey' => 'user_id',
             'joinType' => 'INNER',
         ]);
-        $this->belongsTo('ReplyMessages', [
-            'foreignKey' => 'reply_message_id',
-            'joinType' => 'INNER',
-        ]);
-        $this->belongsTo('RepostMessages', [
-            'foreignKey' => 'repost_message_id',
-            'joinType' => 'INNER',
-        ]);
+
+        $this->hasOne('ReplyMessages', [
+            'className' => 'Posts',
+        ])
+        ->setProperty('replyMessage')
+        ->setJoinType('INNER');
+
+        $this->hasOne('RepostMessages', [
+            'className' => 'Posts',
+        ])
+        ->setProperty('repostMessage')
+        ->setJoinType('INNER');
+
         $this->hasMany('Favorites', [
             'foreignKey' => 'post_id',
         ]);
+
         $this->hasMany('Stars', [
             'foreignKey' => 'post_id',
         ]);
@@ -95,8 +101,8 @@ class PostsTable extends Table
     public function buildRules(RulesChecker $rules)
     {
         $rules->add($rules->existsIn(['user_id'], 'Users'));
-        $rules->add($rules->existsIn(['reply_message_id'], 'ReplyMessages'));
-        $rules->add($rules->existsIn(['repost_message_id'], 'RepostMessages'));
+//        $rules->add($rules->existsIn(['reply_message_id'], 'ReplyMessages'));
+//        $rules->add($rules->existsIn(['repost_message_id'], 'RepostMessages'));
 
         return $rules;
     }
