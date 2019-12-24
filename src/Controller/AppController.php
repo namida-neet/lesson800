@@ -54,15 +54,21 @@ class AppController extends Controller
 
         $this->loadComponent('Auth', [
             'loginRedirect' => [
-                'controller' => 'Pages',
-                'action' => 'display', // 変更する必要性を感じる
-                'home',
+//                'controller' => 'Pages',
+                'controller' => 'Users',
+//                'action' => 'display',
+                'action' => 'login',
+//                'home',
             ],
         ]);
     }
 
     public function beforeFilter(Event $event)
     {
-        $this->Auth->allow(['index', 'view', 'display']); // 変更する必要性を感じる
+        $this->Auth->allow([
+            'index',
+            'view',
+//            'display',
+        ]); // 変更する必要性を感じる
     }
 }
