@@ -13,12 +13,39 @@ use Cake\Event\Event;
  */
 class UsersController extends AppController
 {
+    public function initialize()
+    {
+        parent::initialize();
+
+        $this->loadComponent('Auth', [
+            'authorize' => [
+                'Controller'
+            ],
+            'authenticate' => [
+                'Form' => [
+                    'fields' => [
+                        'username' => 'username',
+                        'password' => 'password',
+                    ],
+                ],
+            ],
+            'loginRedirect' => [
+                'controller' => 'Users',
+                'action' => 'login',
+            ],
+            'logoutRedirect' => [
+                'controller' => 'Users',
+                'action' => 'logout',
+            ],
+            'authError' => 'ログインしてください。',
+        ]);
+    }
+
     public function beforeFilter(Event $event)
     {
         parent::beforeFilter($event);
         $this->Auth->allow([
-            'add',
-            'logout',
+            'login',
         ]);
     }
 
@@ -36,7 +63,24 @@ class UsersController extends AppController
 
     public function logout()
     {
+        $this->request->session()->destroy();
         return $this->redirect($this->Auth->logout());
+    }
+
+    // 認証時のロールの処理
+    public function isAuthorized($user = null)
+    {
+        // 管理者
+        if ($user['role'] === 'admin') {
+            return true;
+        }
+        // ユーザー
+        if ($user['role'] === 'author') {
+            return true;
+        }
+
+        // その他はすべてfalse
+        return false;
     }
 
     /**

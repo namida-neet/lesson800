@@ -71,13 +71,14 @@ class MinibbsBaseController extends AppController
             return true;
         }
 
-        // 一般ユーザはMinibbsControllerのみ
+        // 一般ユーザはMinibbsControllerのみ ここ変更する必要あります
         if ($user['role'] === 'author') {
-            if ($this->name === 'Minibbs') { // 書籍は==になっているけどなぜ
-                return true;
-            } else {
-                return false;
-            }
+//            if ($this->name === 'Minibbs') { // 書籍は==になっているけどなぜ
+//                return true;
+//            } else {
+//                return false;
+//            }
+            return true;
         }
 
         // その他はすべてfalse
