@@ -37,7 +37,12 @@
             <?php foreach ($posts as $post): ?>
             <tr>
                 <td><?= $this->Number->format($post->id) ?></td>
-                <td><?= h($post->messages) ?></td>
+                <td>
+                    <?= h($post->messages) ?>
+                    <?php if (h($post->created) !== h($post->modified)) : ?>
+                    （編集済）
+                    <?php endif; ?>
+                </td>
                 <td><?= $post->has('user') ? $this->Html->link($post->user->id, ['controller' => 'Users', 'action' => 'view', $post->user->id]) : '' ?></td>
                 <td><?= $post->has('user') ? $this->Html->link($post->user->username, ['controller' => 'Users', 'action' => 'view', $post->user->username]) : '' ?></td>
                 <td><?= $this->Number->format($post->reply_message_id) ?></td>
@@ -46,8 +51,10 @@
                 <td><?= h($post->modified) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $post->id]) ?>
+                    <?php if ($authuser['id'] === $post->user->id) : ?>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $post->id]) ?>
                     <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $post->id], ['confirm' => __('Are you sure you want to delete # {0}?', $post->id)]) ?>
+                    <?php endif; ?>
                 </td>
             </tr>
             <?php endforeach; ?>
