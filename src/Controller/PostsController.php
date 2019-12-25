@@ -20,7 +20,7 @@ class PostsController extends MinibbsBaseController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Users', 'ReplyMessages', 'RepostMessages'],
+            'contain' => ['Users',], //'ReplyMessages', 'RepostMessages'],
         ];
         $posts = $this->paginate($this->Posts);
 
@@ -37,7 +37,7 @@ class PostsController extends MinibbsBaseController
     public function view($id = null)
     {
         $post = $this->Posts->get($id, [
-            'contain' => ['Users', 'ReplyMessages', 'RepostMessages', 'Favorites', 'Stars'],
+            'contain' => ['Users', 'Favorites', 'Stars'], //'ReplyMessages', 'RepostMessages',],
         ]);
 
         $this->set('post', $post);
