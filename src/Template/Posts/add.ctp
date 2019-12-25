@@ -22,9 +22,9 @@
         <legend><?= __('Add Post') ?></legend>
         <?php
             echo $this->Form->control('messages');
-            echo $this->Form->control('user_id', ['options' => $users]);
-            echo $this->Form->control('reply_message_id');
-            echo $this->Form->control('repost_message_id');
+            echo $this->Form->hidden('user_id', ['value' => $authuser['id']]);
+//            echo $this->Form->control('reply_message_id');
+//            echo $this->Form->control('repost_message_id');
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>
