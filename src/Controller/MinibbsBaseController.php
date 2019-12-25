@@ -12,8 +12,6 @@ class MinibbsBaseController extends AppController
     {
         parent::initialize();
 
-        $this->loadComponent('RequestHandler');
-        $this->loadComponent('Flash');
         $this->loadComponent('Auth', [
             'authorize' => [
                 'Controller',
@@ -22,7 +20,7 @@ class MinibbsBaseController extends AppController
                 'Form' => [
                     'fields' => [
                         'username' => 'username',
-                        'passowrd' => 'password',
+                        'password' => 'password',
                     ],
                 ],
             ],
@@ -38,15 +36,23 @@ class MinibbsBaseController extends AppController
         ]);
     }
 
+    public function beforeFilter(Event $event)
+    {
+        parent::beforeFilter($event);
+        $this->Auth->allow([
+            'login',
+        ]);
+    }
+
     public function login()
     {
         if ($this->request->is('post')) {
             $user = $this->Auth->identify();
-            if (!empty($user)) {
+            if ($user) {
                 $this->Auth->setUser($user);
                 return $this->redirect($this->Auth->redirectUrl());
             }
-            $this->Flash->error('ユーザ名かパスワードが間違っています。');
+            $this->Flash->error(__('Invalid username or password, try again.'));
         }
     }
 
@@ -56,13 +62,6 @@ class MinibbsBaseController extends AppController
         return $this->redirect($this->Auth->logout());
     }
 
-    // 認証しないページの設定
-    public function beforeFilter(Event $event)
-    {
-        parent::beforeFilter($event);
-        $this->Auth->allow([]); // AppControllerも含めて変更する必要がありそう
-    }
-
     // 認証時のロールの処理
     public function isAuthorized($user = null)
     {
@@ -70,14 +69,8 @@ class MinibbsBaseController extends AppController
         if ($user['role'] === 'admin') {
             return true;
         }
-
-        // 一般ユーザはMinibbsControllerのみ ここ変更する必要あります
+        // ユーザー
         if ($user['role'] === 'author') {
-//            if ($this->name === 'Minibbs') { // 書籍は==になっているけどなぜ
-//                return true;
-//            } else {
-//                return false;
-//            }
             return true;
         }
 

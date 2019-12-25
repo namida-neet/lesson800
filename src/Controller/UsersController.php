@@ -19,7 +19,7 @@ class UsersController extends AppController
 
         $this->loadComponent('Auth', [
             'authorize' => [
-                'Controller'
+                'Controller',
             ],
             'authenticate' => [
                 'Form' => [
