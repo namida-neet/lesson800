@@ -12,6 +12,14 @@ use App\Controller\AppController;
  */
 class PostsController extends MinibbsBaseController
 {
+    public function initialize()
+    {
+        parent::initialize();
+
+        // ログインしているユーザを$authuserにセット
+        $this->set('authuser', $this->Auth->user());
+    }
+
     /**
      * Index method
      *

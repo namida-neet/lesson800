@@ -18,12 +18,14 @@
 </nav>
 <div class="posts index large-9 medium-8 columns content">
     <h3><?= __('Posts') ?></h3>
+    <h4>ログインしているのは<?= $authuser['username'] ?>です</h4>
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>
                 <th scope="col"><?= $this->Paginator->sort('id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('messages') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('user_id') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('user_name') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('reply_message_id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('repost_message_id') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('created') ?></th>
@@ -37,6 +39,7 @@
                 <td><?= $this->Number->format($post->id) ?></td>
                 <td><?= h($post->messages) ?></td>
                 <td><?= $post->has('user') ? $this->Html->link($post->user->id, ['controller' => 'Users', 'action' => 'view', $post->user->id]) : '' ?></td>
+                <td><?= $post->has('user') ? $this->Html->link($post->user->username, ['controller' => 'Users', 'action' => 'view', $post->user->username]) : '' ?></td>
                 <td><?= $this->Number->format($post->reply_message_id) ?></td>
                 <td><?= $this->Number->format($post->repost_message_id) ?></td>
                 <td><?= h($post->created) ?></td>
