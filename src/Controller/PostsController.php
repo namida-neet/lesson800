@@ -29,6 +29,8 @@ class PostsController extends MinibbsBaseController
     {
         $this->paginate = [
             'contain' => ['Users',], //'ReplyMessages', 'RepostMessages'],
+            'order' => ['created' => 'desc'],
+            'limit' => 5,
         ];
         $posts = $this->paginate($this->Posts);
 
@@ -123,5 +125,28 @@ class PostsController extends MinibbsBaseController
         }
 
         return $this->redirect(['action' => 'index']);
+    }
+
+    // Reply
+    public function reply($id = null)
+    {
+        $post = $this->Posts->newEntity();
+        if ($this->request->is('post')) {
+            $post = $this->Posts->patchEntity($post, $this->request->getData());
+
+            $post->reply_message_id = $id;
+            $post->repost_message_id = null;
+
+            if ($this->Posts->save($post)) {
+                $this->Flash->success(__('The post has been saved.'));
+
+                return $this->redirect(['action' => 'index']);
+            }
+            $this->Flash->error(__('The post could not be saved. Please, try again.'));
+        }
+        $users = $this->Posts->Users->find('list', ['limit' => 200]);
+        $replyMessages = $this->Posts->ReplyMessages->find('list', ['limit' => 200]);
+        $repostMessages = $this->Posts->RepostMessages->find('list', ['limit' => 200]);
+        $this->set(compact('post', 'users', 'replyMessages', 'repostMessages'));
     }
 }
