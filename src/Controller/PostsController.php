@@ -10,7 +10,7 @@ use App\Controller\AppController;
  *
  * @method \App\Model\Entity\Post[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
-class PostsController extends MinibbsBaseController
+class PostsController extends AppController
 {
     public function initialize()
     {
@@ -18,6 +18,24 @@ class PostsController extends MinibbsBaseController
 
         // ログインしているユーザを$authuserにセット
         $this->set('authuser', $this->Auth->user());
+    }
+
+    public function isAuthorized($user)
+    {
+        // 登録ユーザー全員が投稿できる
+        if ($this->request->getParam('action') === 'add') {
+            return true;
+        }
+
+        // 投稿者は編集と削除ができる
+        if (in_array($this->request->getParam('action'), ['edit', 'delete'])) {
+            $postId = (int)$this->request->getParam('pass.0');
+            if ($this->Posts->isOwnedBy($postId, $user['id'])) {
+                return true;
+            }
+        }
+
+        return parent::isAuthorized($user);
     }
 
     /**
@@ -63,6 +81,8 @@ class PostsController extends MinibbsBaseController
         $post = $this->Posts->newEntity();
         if ($this->request->is('post')) {
             $post = $this->Posts->patchEntity($post, $this->request->getData());
+
+            $post->user_id = $this->Auth->user('id');
 
             $post->reply_message_id = null;
             $post->repost_message_id = null;
