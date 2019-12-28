@@ -106,12 +106,4 @@ class PostsTable extends Table
 
         return $rules;
     }
-
-    public function isOwnedBy($postId, $userId)
-    {
-        return $this->exists([
-            'id' => $postId,
-            'user_id' => $userId,
-        ]);
-    }
 }

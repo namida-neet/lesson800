@@ -22,6 +22,7 @@
         <li><?= $this->Html->link(__('New Star'), ['controller' => 'Stars', 'action' => 'add']) ?></li>
     </ul>
 </nav>
+<?php if ($authuser['role'] === 'admin' || $authuser['id'] === $post->user_id) : ?>
 <div class="posts form large-9 medium-8 columns content">
     <?= $this->Form->create($post) ?>
     <fieldset>
@@ -36,3 +37,9 @@
     <?= $this->Form->button(__('Submit')) ?>
     <?= $this->Form->end() ?>
 </div>
+<?php else : ?>
+<div class="posts form large-9 medium-8 columns content">
+    <p>この記事を編集する権限がありません。</p>
+    <p><?= $this->Html->link(__('戻る'), ['action' => 'index']) ?></p>
+</div>
+<?php endif; ?>

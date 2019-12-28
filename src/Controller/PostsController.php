@@ -20,24 +20,6 @@ class PostsController extends AppController
         $this->set('authuser', $this->Auth->user());
     }
 
-    public function isAuthorized($user)
-    {
-        // 登録ユーザー全員が投稿できる
-        if ($this->request->getParam('action') === 'add') {
-            return true;
-        }
-
-        // 投稿者は編集と削除ができる
-        if (in_array($this->request->getParam('action'), ['edit', 'delete'])) {
-            $postId = (int)$this->request->getParam('pass.0');
-            if ($this->Posts->isOwnedBy($postId, $user['id'])) {
-                return true;
-            }
-        }
-
-        return parent::isAuthorized($user);
-    }
-
     /**
      * Index method
      *
@@ -112,15 +94,22 @@ class PostsController extends AppController
         $post = $this->Posts->get($id, [
             'contain' => [],
         ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $post = $this->Posts->patchEntity($post, $this->request->getData());
-            if ($this->Posts->save($post)) {
-                $this->Flash->success(__('The post has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+        if ($this->Auth->user('role') === 'admin' || $this->Auth->user('id') && $post->user_id) {
+            if ($this->request->is(['patch', 'post', 'put'])) {
+                $post = $this->Posts->patchEntity($post, $this->request->getData());
+                if ($this->Posts->save($post)) {
+                    $this->Flash->success(__('The post has been saved.'));
+
+                    return $this->redirect(['action' => 'index']);
+                }
+                $this->Flash->error(__('The post could not be saved. Please, try again.'));
             }
-            $this->Flash->error(__('The post could not be saved. Please, try again.'));
+        } else {
+            $this->Flash->error(__('この記事を編集する権限がありません。'));
+            return $this->redirect(['action' => 'index']);
         }
+
         $users = $this->Posts->Users->find('list', ['limit' => 200]);
         $replyMessages = $this->Posts->ReplyMessages->find('list', ['limit' => 200]);
         $repostMessages = $this->Posts->RepostMessages->find('list', ['limit' => 200]);
@@ -138,10 +127,16 @@ class PostsController extends AppController
     {
         $this->request->allowMethod(['post', 'delete']);
         $post = $this->Posts->get($id);
-        if ($this->Posts->delete($post)) {
-            $this->Flash->success(__('The post has been deleted.'));
+
+        if ($this->Auth->user('role') === 'admin' || $this->Auth->user('id') && $post->user_id) {
+            if ($this->Posts->delete($post)) {
+                $this->Flash->success(__('The post has been deleted.'));
+            } else {
+                $this->Flash->error(__('The post could not be deleted. Please, try again.'));
+            }
         } else {
-            $this->Flash->error(__('The post could not be deleted. Please, try again.'));
+            $this->Flash->error(__('この記事を削除する権限がありません。'));
+            return $this->redirect(['action' => 'index']);
         }
 
         return $this->redirect(['action' => 'index']);
