@@ -146,6 +146,12 @@ class PostsController extends AppController
     public function reply($id = null)
     {
         $post = $this->Posts->newEntity();
+
+        $replySource = $this->Posts->get($id, [
+            'contain' => 'Users',
+        ]);
+        $post->messages = '@' . $replySource->user->username . ' Re: ' . $replySource->messages . ' ＞ ';
+
         if ($this->request->is('post')) {
             $post = $this->Posts->patchEntity($post, $this->request->getData());
 
