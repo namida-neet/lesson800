@@ -53,7 +53,7 @@ class AppController extends Controller
 
         $this->loadComponent('Auth', [
             'loginRedirect' => [
-                'controller' => 'Posts',
+                'controller' => 'Minibbs',
                 'action' => 'index',
             ],
             'logoutRedirect' => [
@@ -62,8 +62,6 @@ class AppController extends Controller
                 'home'
             ],
         ]);
-
-        $this->viewBuilder()->setLayout('minibbs');
     }
 
     public function beforeFilter(Event $event)
