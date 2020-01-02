@@ -26,12 +26,33 @@ class MinibbsController extends AppController
     // トップページ
     public function index()
     {
-        $posts = $this->paginate('Posts', [
-            'contain' => ['Users'],
+        // 投稿されたメッセージの表示
+        $minibbsPosts = $this->paginate('Posts', [
+            'contain' => ['Users', 'Favorites', 'Stars'],
             'order' => ['created' => 'desc'],
             'limit' => 5,
         ]);
 
-        $this->set(compact('posts'));
+        $this->set(compact('minibbsPosts'));
+
+        // 投稿フォーム（add）
+        if ($this->request->is('post')) {
+            $message = $this->request->data['Posts'];
+            $post = $this->Posts->newEntity($message);
+
+            $post->user_id = $this->Auth->user('id');
+            $post->reply_message_id = null;
+            $post->repost_message_id = null;
+
+            if ($this->Posts->save($post)) {
+                $this->Flash->success(__('The post has been saved.'));
+
+                return $this->redirect(['action' => 'index']);
+            }
+            $this->Flash->error(__('The post could not be saved. Please, try again.'));
+        } else {
+            $post = $this->Posts->newEntity();
+        }
+        $this->set(compact('post'));
     }
 }
