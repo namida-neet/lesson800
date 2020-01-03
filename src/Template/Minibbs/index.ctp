@@ -1,5 +1,6 @@
 <div class="posts index large-9 medium-8 columns content">
     <h4>ログインしているのは<?= $authuser['username'] ?>です</h4>
+<!--投稿フォーム-->
     <div class="posts form large-9 medium-8 columns content">
         <?= $this->Form->create($post, [
             'type' => 'post',
@@ -10,13 +11,16 @@
         ]) ?>
         <fieldset>
             <legend><?= __('Add Post') ?></legend>
-            <?php
-                echo $this->Form->control('Posts.messages');
-            ?>
+            <?= $this->Form->control('Posts.messages') ?>
+            <?php if (isset($post->reply_message_id)) : ?>
+                <?= $this->Form->hidden('Posts.reply_message_id', ['value' => $post->reply_message_id]) ?>
+            <?php endif; ?>
         </fieldset>
         <?= $this->Form->button(__('Submit')) ?>
         <?= $this->Form->end() ?>
     </div>
+<!--投稿フォームここまで-->
+<!--投稿一覧表示-->
     <table cellpadding="0" cellspacing="0">
         <thead>
         <tr>
@@ -43,7 +47,12 @@
                 <td><?= $this->Number->format($minibbsPost->reminibbsPost_message_id) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $minibbsPost->id]) ?>
-                    <?= $this->Html->link(__('Reply'), ['action' => 'reply', $minibbsPost->id]) ?>
+
+                    <?= $this->Html->link(__('Reply'), [
+                        'action' => 'index',
+                        '?' => ['reply' => $minibbsPost->id],
+                    ]) ?>
+
                     <?php if ($authuser['role'] === 'admin' || $authuser['id'] === $minibbsPost->user->id) : ?>
                         <?= $this->Html->link(__('Edit'), ['action' => 'edit', $minibbsPost->id]) ?>
                         <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $minibbsPost->id], ['confirm' => __('Are you sure you want to delete # {0}?', $minibbsPost->id)]) ?>
@@ -53,6 +62,8 @@
         <?php endforeach; ?>
         </tbody>
     </table>
+<!--投稿一覧表示ここまで-->
+<!--ページネーション-->
     <div class="paginator">
         <ul class="pagination">
             <?= $this->Paginator->first('<< ' . __('first')) ?>
@@ -64,3 +75,4 @@
         <p><?= $this->Paginator->counter(['format' => __('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')]) ?></p>
     </div>
 </div>
+<!--ページネーションここまで-->
