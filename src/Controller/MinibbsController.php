@@ -73,4 +73,13 @@ class MinibbsController extends AppController
 
         $this->set(compact('post'));
     }
+
+    public function view($id = null)
+    {
+        $post = $this->Posts->get($id, [
+            'contain' => ['Users', 'Favorites', 'Stars'],
+        ]);
+
+        $this->set('post', $post);
+    }
 }
