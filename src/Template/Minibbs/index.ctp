@@ -48,6 +48,10 @@
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $minibbsPost->id]) ?>
 
+                    <?php if ($minibbsPost->reply_message_id !== null) : ?>
+                    <?= $this->Html->link(__('返信元のメッセージ'), ['action' => 'view', $minibbsPost->reply_message_id]) ?>
+                    <?php endif; ?>
+
                     <?= $this->Html->link(__('Reply'), [
                         'action' => 'index',
                         '?' => ['reply' => $minibbsPost->id],
