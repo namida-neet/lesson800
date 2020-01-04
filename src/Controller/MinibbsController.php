@@ -82,4 +82,23 @@ class MinibbsController extends AppController
 
         $this->set('post', $post);
     }
+
+    public function delete($id = null)
+    {
+        $this->request->allowMethod(['post', 'delete']);
+        $post = $this->Posts->get($id);
+
+        if ($this->Auth->user('role') === 'admin' || $this->Auth->user('id') && $post->user_id) {
+            if ($this->Posts->delete($post)) {
+                $this->Flash->success(__('The post has been deleted.'));
+            } else {
+                $this->Flash->error(__('The post could not be deleted. Please, try again.'));
+            }
+        } else {
+            $this->Flash->error(__('この記事を削除する権限がありません。'));
+            return $this->redirect(['action' => 'index']);
+        }
+
+        return $this->redirect(['action' => 'index']);
+    }
 }
