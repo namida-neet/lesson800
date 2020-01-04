@@ -58,7 +58,6 @@
                     ]) ?>
 
                     <?php if ($authuser['role'] === 'admin' || $authuser['id'] === $minibbsPost->user->id) : ?>
-                        <?= $this->Html->link(__('Edit'), ['action' => 'edit', $minibbsPost->id]) ?>
                         <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $minibbsPost->id], ['confirm' => __('Are you sure you want to delete # {0}?', $minibbsPost->id)]) ?>
                     <?php endif; ?>
                 </td>

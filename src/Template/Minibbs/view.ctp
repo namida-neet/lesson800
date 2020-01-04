@@ -1,5 +1,8 @@
 <div class="posts view large-9 medium-8 columns content">
     <h3><?= h($post->id) ?></h3>
+    <?php if ($authuser['role'] === 'admin' || $authuser['id'] === $post->user->id) : ?>
+    <?= $this->Html->link(__('投稿を編集する'), ['action' => 'edit', $post->id]) ?>
+    <?php endif; ?>
     <table class="vertical-table">
         <tr>
             <th scope="row"><?= __('Messages') ?></th>
