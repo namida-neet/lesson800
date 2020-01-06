@@ -8,7 +8,7 @@
         </p>
     </div><!-- user-info -->
 
-    <!--投稿フォーム-->
+    <!-- 投稿フォーム -->
     <?= $this->Form->create($post, [
         'type' => 'post',
         'url' => [
@@ -33,66 +33,67 @@
         ],
     ]) ?>
     <?= $this->Form->end() ?>
-    <!--投稿フォームここまで-->
-
+    <!-- 投稿フォームここまで -->
 </div><!-- post-area -->
 
+<!-- 投稿一覧表示 -->
+<?php foreach ($minibbsPosts as $minibbsPost): ?>
+<div class="msg">
+    <img src="" alt="<?= h($minibbsPost->user->username) ?>のアイコン" width="48" height="48">
+    <p class="post-message">
+        <?= h($minibbsPost->messages) ?>
+        <?php if (h($minibbsPost->created) !== h($minibbsPost->modified)) : ?>
+            <span class="edit-message">（編集済）</span>
+        <?php endif; ?>
+        <span class="name"> [ <?= h($minibbsPost->user->username) ?> ] </span>
+        <span class="post-number">No.<?= $this->Number->format($minibbsPost->id) ?></span>
+    </p>
 
+    <div class="post-description">
+        <p class="day">
+            <?= $this->Html->link(h($minibbsPost->created), ['action' => 'view', $minibbsPost->id]) ?>
+        </p>
 
-
-
-
-
-
-
-
-
-<!--投稿一覧表示-->
-    <table cellpadding="0" cellspacing="0">
-        <thead>
-        <tr>
-            <th scope="col"><?= $this->Paginator->sort('id') ?></th>
-            <th scope="col"><?= $this->Paginator->sort('messages') ?></th>
-            <th scope="col"><?= $this->Paginator->sort('user_name') ?></th>
-            <th scope="col"><?= $this->Paginator->sort('reply_message_id') ?></th>
-            <th scope="col"><?= $this->Paginator->sort('repost_message_id') ?></th>
-            <th scope="col" class="actions"><?= __('Actions') ?></th>
-        </tr>
-        </thead>
-        <tbody>
-        <?php foreach ($minibbsPosts as $minibbsPost): ?>
-            <tr>
-                <td><?= $this->Number->format($minibbsPost->id) ?></td>
-                <td>
-                    <?= h($minibbsPost->messages) ?>
-                    <?php if (h($minibbsPost->created) !== h($minibbsPost->modified)) : ?>
-                        （編集済）
-                    <?php endif; ?>
-                </td>
-                <td><?= $minibbsPost->has('user') ? $this->Html->link($minibbsPost->user->username, ['controller' => 'Users', 'action' => 'view', $minibbsPost->user->id]) : '' ?></td>
-                <td><?= $this->Number->format($minibbsPost->reply_message_id) ?></td>
-                <td><?= $this->Number->format($minibbsPost->reminibbsPost_message_id) ?></td>
-                <td class="actions">
-                    <?= $this->Html->link(__('View'), ['action' => 'view', $minibbsPost->id]) ?>
-
-                    <?php if ($minibbsPost->reply_message_id !== null) : ?>
-                    <?= $this->Html->link(__('返信元のメッセージ'), ['action' => 'view', $minibbsPost->reply_message_id]) ?>
-                    <?php endif; ?>
-
-                    <?= $this->Html->link(__('Reply'), [
-                        'action' => 'index',
-                        '?' => ['reply' => $minibbsPost->id],
-                    ]) ?>
-
-                    <?php if ($authuser['role'] === 'admin' || $authuser['id'] === $minibbsPost->user->id) : ?>
-                        <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $minibbsPost->id], ['confirm' => __('Are you sure you want to delete # {0}?', $minibbsPost->id)]) ?>
-                    <?php endif; ?>
-                </td>
-            </tr>
-        <?php endforeach; ?>
-        </tbody>
-    </table>
+        <?php if ($minibbsPost->reply_message_id !== null) : ?>
+        <p class="reply_message">
+            <?= $this->Html->link(__('返信元のメッセージ'), ['action' => 'view', $minibbsPost->reply_message_id]) ?>
+        </p>
+        <?php endif; ?>
+    </div><!-- post-description -->
+    <div class="reaction-tools">
+        <p class="res-button">
+            <?= $this->Html->link(__('Reply'), [
+                'action' => 'index',
+                '?' => ['reply' => $minibbsPost->id],
+            ]) ?>
+        </p>
+        <p class="res-button">
+            <a href="">Repost</a>
+        </p>
+        <p class="favorite">
+            <a href="">は</a>
+        </p>
+        <p class="favCount">
+            か
+        </p>
+        <p class="star">
+            <a href="">す</a>
+        </p>
+        <p class="starAverage">
+            か
+        </p>
+        <?php if ($authuser['role'] === 'admin' || $authuser['id'] === $minibbsPost->user->id) : ?>
+        <div class="delete-button">
+            <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $minibbsPost->id], ['confirm' => __('Are you sure you want to delete # {0}?', $minibbsPost->id)]) ?>
+        </div>
+        <?php endif; ?>
+    </div><!-- reaction-tools -->
+</div><!-- msg -->
+<?php endforeach; ?>
 <!--投稿一覧表示ここまで-->
+
+
+
 <!--ページネーション-->
     <div class="paginator">
         <ul class="pagination">

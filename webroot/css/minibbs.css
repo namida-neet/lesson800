@@ -337,6 +337,7 @@ input[type="text"].bbs-textarea {
 
 .post-message {
     margin-top: 8px;
+    font-size: 20px;
 }
 
 .name {
@@ -389,6 +390,11 @@ input[type="text"].bbs-textarea {
     border: 1px solid #ccc;
     background: #fff;
     color: #BB1850
+}
+
+.edit-message {
+    font-size: 12px;
+    color: #9d9d9d;
 }
 
 /* --------------------------------
