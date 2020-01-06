@@ -445,6 +445,7 @@ li {
 .paging li {
     display: inline;
     list-style: none;
+    padding: 0px 4px;
     font-size: 14px;
 }
 
