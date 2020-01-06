@@ -30,7 +30,7 @@ class MinibbsController extends AppController
         $minibbsPosts = $this->paginate('Posts', [
             'contain' => ['Users', 'Favorites', 'Stars'],
             'order' => ['created' => 'desc'],
-            'limit' => 5,
+            'limit' => 10,
         ]);
 
         $this->set(compact('minibbsPosts'));
