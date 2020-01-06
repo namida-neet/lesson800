@@ -61,6 +61,11 @@
         <?php endif; ?>
     </div><!-- post-description -->
     <div class="reaction-tools">
+        <?php if ($authuser['role'] === 'admin' || $authuser['id'] === $minibbsPost->user->id) : ?>
+        <div class="delete-button">
+            <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $minibbsPost->id], ['confirm' => __('Are you sure you want to delete # {0}?', $minibbsPost->id)]) ?>
+        </div>
+        <?php endif; ?>
         <p class="res-button">
             <?= $this->Html->link(__('Reply'), [
                 'action' => 'index',
@@ -82,11 +87,6 @@
         <p class="starAverage">
             か
         </p>
-        <?php if ($authuser['role'] === 'admin' || $authuser['id'] === $minibbsPost->user->id) : ?>
-        <div class="delete-button">
-            <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $minibbsPost->id], ['confirm' => __('Are you sure you want to delete # {0}?', $minibbsPost->id)]) ?>
-        </div>
-        <?php endif; ?>
     </div><!-- reaction-tools -->
 </div><!-- msg -->
 <?php endforeach; ?>
