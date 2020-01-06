@@ -1,25 +1,52 @@
-<div class="posts index large-9 medium-8 columns content">
-    <h4>ログインしているのは<?= $authuser['username'] ?>です</h4>
-<!--投稿フォーム-->
-    <div class="posts form large-9 medium-8 columns content">
-        <?= $this->Form->create($post, [
-            'type' => 'post',
-            'url' => [
-                'controller' => 'Minibbs',
-                'action' => 'index',
-            ],
+<div class="post-area">
+    <div class="user-info">
+        <p class="user-icon">
+            <img src="" alt="">
+        </p>
+        <p class="user-name">
+            <?= $authuser['username'] ?>
+        </p>
+    </div><!-- user-info -->
+
+    <!--投稿フォーム-->
+    <?= $this->Form->create($post, [
+        'type' => 'post',
+        'url' => [
+            'controller' => 'Minibbs',
+            'action' => 'index',
+        ],
+        'class' => 'bbs-form',
+    ]) ?>
+    <?= $this->Form->control('Posts.messages', [
+        'label' => false,
+        'class' => 'bbs-textarea',
+    ]) ?>
+    <?php if (isset($post->reply_message_id)) : ?>
+        <?= $this->Form->hidden('Posts.reply_message_id', [
+            'value' => $post->reply_message_id,
         ]) ?>
-        <fieldset>
-            <legend><?= __('Add Post') ?></legend>
-            <?= $this->Form->control('Posts.messages') ?>
-            <?php if (isset($post->reply_message_id)) : ?>
-                <?= $this->Form->hidden('Posts.reply_message_id', ['value' => $post->reply_message_id]) ?>
-            <?php endif; ?>
-        </fieldset>
-        <?= $this->Form->button(__('Submit')) ?>
-        <?= $this->Form->end() ?>
-    </div>
-<!--投稿フォームここまで-->
+    <?php endif; ?>
+    <?= $this->Form->submit(__('Submit'), [
+        'class' => [
+            'submit-button',
+            '-bbs-message',
+        ],
+    ]) ?>
+    <?= $this->Form->end() ?>
+    <!--投稿フォームここまで-->
+
+</div><!-- post-area -->
+
+
+
+
+
+
+
+
+
+
+
 <!--投稿一覧表示-->
     <table cellpadding="0" cellspacing="0">
         <thead>
@@ -78,4 +105,3 @@
         <p><?= $this->Paginator->counter(['format' => __('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')]) ?></p>
     </div>
 <!--ページネーションここまで-->
-</div>

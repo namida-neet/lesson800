@@ -26,23 +26,24 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     </title>
     <?= $this->Html->meta('icon') ?>
 
-    <?= $this->Html->css('base.css') ?>
-    <?= $this->Html->css('style.css') ?>
+<!--  $this->Html->css('base.css')  -->
+<!--  $this->Html->css('style.css')  -->
+    <?= $this->Html->css('minibbs.css') ?>
+    <?= $this->Html->css('flashmessage.css') ?>
 
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
     <?= $this->fetch('script') ?>
 </head>
 <body>
-    <header>
-        <?= $this->element('header') ?>
-    </header>
-    <?= $this->Flash->render() ?>
-    <div class="container clearfix">
-        <?= $this->fetch('content') ?>
+    <div id="wrap">
+        <header id="head">
+            <?= $this->element('header') ?>
+        </header>
+        <?= $this->Flash->render() ?>
+        <div id="content">
+            <?= $this->fetch('content') ?>
+        </div>
     </div>
-    <footer>
-        <?= $this->element('footer') ?>
-    </footer>
 </body>
 </html>

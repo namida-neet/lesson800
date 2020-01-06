@@ -1,14 +1,6 @@
-<nav class="top-bar expanded" data-topbar role="navigation">
-    <ul class="title-area large-3 medium-4 columns">
-        <li class="name">
-            <h1><?= $this->Html->link(__('Minibbs'), ['controller' => 'Minibbs', 'action' => 'index']) ?></h1>
-        </li>
-    </ul>
-    <div class="top-bar-section">
-        <ul class="right">
-            <li><?= $this->Html->link(__('Logout'), ['controller' => 'Users', 'action' => 'logout']) ?></li>
-            <li><a target="_blank" href="https://book.cakephp.org/3.0/">Documentation</a></li>
-            <li><a target="_blank" href="https://api.cakephp.org/3.0/">API</a></li>
-        </ul>
-    </div>
-</nav>
+<h1>
+    <?= $this->Html->link(__('Minibbs'), ['controller' => 'Minibbs', 'action' => 'index']) ?>
+</h1>
+<div class="header-button">
+    <?= $this->Html->link(__('Logout'), ['controller' => 'Users', 'action' => 'logout']) ?>
+</div>
