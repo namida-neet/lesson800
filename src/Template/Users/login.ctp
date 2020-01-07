@@ -1,13 +1,26 @@
-<!-- File: src/Template/Users/login.ctp -->
-
-<div class="users form">
-<?= $this->Flash->render() ?>
-<?= $this->Form->create() ?>
-    <fieldset>
-        <lagend><?= __('Prease enter your username and password') ?></lagend>
-        <?= $this->Form->control('username') ?>
-        <?= $this->Form->control('password') ?>
-    </fieldset>
-<?= $this->Form->button(__('Login')); ?>
+<?= $this->Form->create('', [
+    'class' => 'login-form',
+]) ?>
+<?= $this->Form->control('username', [
+    'label' => [
+        'class' => [
+            'label-name',
+            'uppercase',
+        ],
+    ],
+]) ?>
+<?= $this->Form->control('password', [
+    'label' => [
+        'class' => [
+            'label-name',
+            'uppercase',
+        ],
+    ],
+]) ?>
+<?= $this->Form->submit(__('Login'), [
+    'class' => [
+        'submit-button',
+        '-login',
+    ],
+]) ?>
 <?= $this->Form->end() ?>
-</div>

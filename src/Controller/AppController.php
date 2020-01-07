@@ -57,10 +57,10 @@ class AppController extends Controller
                 'action' => 'index',
             ],
             'logoutRedirect' => [
-                'controller' => 'Pages',
-                'action' => 'display',
-                'home'
+                'controller' => 'Users',
+                'action' => 'login',
             ],
+            'authError' => 'Please login.',
         ]);
     }
 

@@ -20,6 +20,8 @@ class UsersController extends AppController
             'add',
             'logout',
         ]);
+
+        $this->viewBuilder()->setLayout('minibbs');
     }
 
     public function login()

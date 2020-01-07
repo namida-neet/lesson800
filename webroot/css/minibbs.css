@@ -159,13 +159,17 @@ dt {
     border-left: 5px solid #3C2B5B;
 }
 .label-name {
+    display: block;
     margin-bottom: 8px;
     padding-left: 8px;
     border-left: 5px solid #3C2B5B;
 }
-.label-name:not(:first-child) {
-    margin-top: 32px;
+.login-form input {
+    margin-bottom: 32px;
 }
+/*.label-name:not(:first-child) {*/
+/*    margin-top: 32px;*/
+/*}*/
 
 dd {
     margin-bottom: 32px;
