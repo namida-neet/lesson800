@@ -12,7 +12,7 @@ div.message {
     z-index: 999;
     overflow: hidden;
     height: 50px;
-    line-height: 2.5em;
+    line-height: 50px;
 }
 
 div.message.error {

@@ -36,11 +36,11 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <?= $this->fetch('script') ?>
 </head>
 <body>
+    <?= $this->Flash->render() ?>
     <div id="wrap">
         <header id="head">
             <?= $this->element('header') ?>
         </header>
-        <?= $this->Flash->render() ?>
         <div id="content">
             <?= $this->fetch('content') ?>
         </div>
