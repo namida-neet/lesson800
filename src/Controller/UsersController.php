@@ -17,7 +17,8 @@ class UsersController extends AppController
     {
         parent::beforeFilter($event);
         $this->Auth->allow([
-            'add',
+            'login',
+            'signup',
             'logout',
         ]);
 
@@ -40,6 +41,29 @@ class UsersController extends AppController
     {
         return $this->redirect($this->Auth->logout());
 
+    }
+
+    public function signup()
+    {
+        $user = $this->Users->newEntity();
+        if ($this->request->is('post')) {
+            $user = $this->Users->patchEntity($user, $this->request->getData());
+            if ($this->request->data['mode'] === 'confirm') {
+                $checkdata = $this->request->data;
+                $this->set(compact('checkdata'));
+                $this->render('confirm');
+            } elseif ($this->request->data['mode'] === 'savedata') {
+                if ($this->Users->save($user)) {
+                    $this->Flash->success(__('The user has been saved.'));
+
+                    return $this->redirect([
+                        'action' => 'login',
+                    ]);
+                }
+                $this->Flash->error(__('The user could not be saved. Please, try again.'));
+            }
+        }
+        $this->set(compact('user'));
     }
 
     /**

@@ -164,7 +164,8 @@ dt {
     padding-left: 8px;
     border-left: 5px solid #3C2B5B;
 }
-.login-form input {
+.login-form input,
+.signup-form input {
     margin-bottom: 32px;
 }
 /*.label-name:not(:first-child) {*/
