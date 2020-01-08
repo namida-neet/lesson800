@@ -1,0 +1,546 @@
+/*
+Copyright (c) 2010, Yahoo! Inc. All rights reserved.
+Code licensed under the BSD License:
+http://developer.yahoo.com/yui/license.html
+version: 2.8.1
+*/
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,button,textarea,p,blockquote,th,td {
+    margin:0;
+    padding:0;
+}
+table {
+    border-collapse:collapse;
+    border-spacing:0;
+}
+fieldset,img {
+    border:0;
+}
+address,caption,cite,code,dfn,em,strong,th,var,optgroup {
+    font-style:inherit;
+    font-weight:inherit;
+}
+del,ins {
+    text-decoration:none;
+}
+li {
+    list-style:none;
+}caption,th {
+     text-align:left;
+ }
+h1,h2,h3,h4,h5,h6 {
+    font-size:100%;
+    font-weight:normal;
+}
+q:before,q:after {
+    content:'';
+}
+abbr,acronym {
+    border:0;
+    font-variant:normal;
+}
+sup {
+    vertical-align:baseline;
+}
+sub {
+    vertical-align:baseline;
+}
+legend {
+    color:#000;
+}
+input,button,textarea,select,optgroup,option {
+    font-family:inherit;
+    font-size:inherit;
+    font-style:inherit;
+    font-weight:inherit;
+}
+input,button,textarea,select {
+    *font-size:100%;
+}
+
+/*
+Copyright (c) 2010, Yahoo! Inc. All rights reserved.
+Code licensed under the BSD License:
+http://developer.yahoo.com/yui/license.html
+version: 2.8.1
+*/
+body {
+    font:13px/1.231 arial,helvetica,clean,sans-serif;
+    *font-size:small;
+    *font:x-small;
+}
+select,input,button,textarea,button {
+    font:99% arial,helvetica,clean,sans-serif;
+}
+table {
+    font-size:inherit;
+    font:100%;
+}
+pre,code,kbd,samp,tt {
+    font-family:monospace;
+    *font-size:108%;
+    line-height:100%;
+}
+
+/* --------↑放置-------- */
+/* --------↓ここからかく-------- */
+body {
+    background: #3C2B5B;
+    color: #333;
+}
+
+input, button, textarea {
+    appearance: none;
+}
+
+#wrap {
+    width: 802px;
+    margin: 32px auto 0;
+    border: 20px solid #E5A83F;
+    border-radius: 4px;
+    background: #E5A83F;
+}
+
+/* ヘッダー
+---------------------------------------- */
+#head {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 20px 40px;
+    border-radius: 4px;
+    background: #3C2B5B;
+    color: #fafafa;
+}
+
+h1 a {
+    color: #fafafa;
+    font-size: 197%;
+    font-weight: bold;
+}
+
+.header-button a {
+    padding: 8px 16px;
+    border: 1px solid #fafafa;
+    border-radius: 4px;
+    color: #fafafa;
+    text-decoration: none;
+}
+
+.header-button a:focus {
+    outline: 0;
+    border: 3px solid #E5A83F;
+    color: #E5A83F;
+}
+
+/* メイン部分
+---------------------------------------- */
+#content {
+    position: relative;
+    width: 722px;
+    min-height: 490px;
+    padding: 40px;
+    border-radius: 4px;
+    background: #fafafa;
+    font-size: 16px;
+}
+
+dl {
+    margin-bottom: 48px;
+}
+.form {
+    margin-bottom: 48px;
+}
+
+dt {
+    margin-bottom: 8px;
+    padding-left: 8px;
+    border-left: 5px solid #3C2B5B;
+}
+.label-name {
+    display: block;
+    margin-bottom: 8px;
+    padding-left: 8px;
+    border-left: 5px solid #3C2B5B;
+}
+.login-form input,
+.signup-form input {
+    margin-bottom: 32px;
+}
+/*.label-name:not(:first-child) {*/
+/*    margin-top: 32px;*/
+/*}*/
+
+.signup-form .error-message {
+    display: inline-block;
+    margin-left: 16px;
+}
+
+dd {
+    margin-bottom: 32px;
+}
+
+/*.required {*/
+/*    margin-left: 10px;*/
+/*    padding: 4px 8px;*/
+/*    border-radius: 4px;*/
+/*    background-color: #BB1850;*/
+/*    color: #fff;*/
+/*    font-size: 12px;*/
+/*    vertical-align: 4px;*/
+/*}*/
+
+/* form 関連
+---------------------------------------- */
+input[type="text"], input[type="password"] {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/*input:focus {*/
+/*    outline: 0;*/
+/*    border: 3px solid #E5A83F;*/
+/*}*/
+
+/* ボタン
+---------------------------------------- */
+.submit-button {
+    border-style: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.submit-button.-signup {
+    margin-top: 48px;
+    padding: 8px 32px;
+    background: #777;
+    color: #fafafa;
+    font-size: 20px;
+}
+.submit-button.-login {
+    margin-top: 48px;
+    padding: 8px 32px;
+    background: #3C2B5B;
+    color: #fafafa;
+    font-size: 20px;
+}
+.submit-button.-ok {
+    padding: 8px 48px;
+    background: #3C2B5B;
+    color: #fafafa;
+    font-size: 20px;
+}
+
+.cancel-button {
+    display: inline-block;
+    margin-left: 24px;
+    padding: 7px 32px;
+    border-style: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background: #fff;
+    color: #777;
+    font-size: 20px;
+    text-decoration: none;
+}
+.cancel-button:focus {
+    outline: 0;
+    border: 3px solid #E5A83F;
+}
+
+/* thankyou.phpのページ
+---------------------------------------- */
+.thankyou-wrap {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    height: 400px;
+}
+
+.thankyou {
+    font-size: 24px;
+}
+
+.thankyou-login-button {
+    margin-top: 48px;
+}
+.thankyou-login-button a {
+    padding: 16px 32px;
+    border-radius: 4px;
+    background: #3C2B5B;
+    color: #fff;
+    font-size: 24px;
+    text-decoration: none;
+}
+.thankyou-login-button a:focus {
+    outline: 0;
+    border: 3px solid #E5A83F;
+}
+
+/* loginのページ
+---------------------------------------- */
+.stey-signed-in {
+    margin-top: 32px;
+}
+
+.mini {
+    font-size: 14px;
+}
+
+.copy {
+    position: absolute;
+    right: 16px;
+    bottom: 16px;
+}
+
+/* =============================================
+BBS
+============================================= */
+
+.post-area {
+    padding-left: 16px;
+    border-left: 8px solid #3C2B5B;
+}
+.user-info {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.user-icon img {
+    border-radius: 50%;
+    vertical-align: bottom;
+}
+
+.user-name {
+    margin-left: 6px;
+    padding: 4px 8px;
+}
+
+.bbs-form {
+    margin-bottom: 16px;
+}
+
+.bbs-form > div {
+    display: inline-block;
+    vertical-align: bottom;
+}
+
+input[type="text"].bbs-textarea {
+    width: 520px;
+    padding: 9px;
+    border: 2px solid #3C2B5B;
+    border-radius: 4px;
+}
+
+.bbs-textarea:focus {
+    outline: 0;
+    border: 2px solid #E5A83F;
+    box-shadow: inner 0 0 4px rgba(0, 0, 0, 0.2);
+}
+
+.submit-button.-bbs-message {
+    margin-left: 16px;
+    padding: 8px 24px;
+    background: #3C2B5B;
+    color: #fafafa;
+    font-size: 20px;
+    vertical-align: text-bottom;
+}
+
+.post-message {
+    margin-top: 8px;
+    font-size: 20px;
+}
+
+.name {
+    padding: 0 8px;
+    font-size: 14px;
+}
+
+.post-number {
+    font-size: 12px;
+}
+
+.post-description {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    margin-top: 8px;
+}
+
+.reaction-tools {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-end;
+    align-items: center;
+    margin: 8px 0 0 56px;
+}
+
+.day a {
+    color: #777;
+    font-size: 14px;
+}
+.reply_message a {
+    padding-left: 8px;
+    color: #777;
+    font-size: 14px;
+}
+
+.res-button a, .delete-button a {
+    margin-left: 8px;
+    padding: 4px 8px;
+    border-style: none;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+.res-button a {
+    background: #aaa;
+}
+
+.delete-button a {
+    border: 1px solid #ccc;
+    background: #fff;
+    color: #BB1850
+}
+
+.edit-message {
+    font-size: 12px;
+    color: #9d9d9d;
+}
+
+/* --------------------------------
+Utility
+-------------------------------- */
+.hidden {
+    display: none;
+}
+
+.uppercase {
+    text-transform: uppercase;
+}
+
+.var_dump {
+    margin-top: 32px;
+    padding: 16px;
+    background: #fff;
+}
+pre {
+    margin-bottom: 16px;
+}
+
+/* --------------------------------
+ここから下はあまりいじりたくない
+-------------------------------- */
+th, td {
+    padding: 3px;
+    border: 1px solid #999;
+}
+
+th {
+    background-color: #106eb7;
+    color: #fff;
+    font-weight: bold;
+}
+
+li {
+    list-style: circle;
+    margin-bottom: 0.5em;
+}
+
+.paging {
+    margin-top: 32px;
+    font-size: 16px;
+    text-align: center;
+}
+
+.paging li {
+    display: inline;
+    list-style: none;
+    padding: 0px 4px;
+    font-size: 14px;
+}
+
+.error {
+    font-size: 90%;
+    color: #BB1850;
+}
+
+.msg {
+    clear: both;
+    padding: 10px 24px;
+    border-top: 1px solid #ccc;
+}
+.msg img {
+    float: left;
+    width: 48px;
+    height: 48px;
+    margin-right: 16px;
+    border-radius: 50%;
+}
+
+/* --------------------------------
+いいねボタン
+-------------------------------- */
+.favorite a {
+    margin-left: 16px;
+    color: #BB1850;
+    font-size: 20px;
+    text-decoration: none;
+}
+.star {
+    margin-left: 16px;
+}
+.star a {
+    color: #333;
+    font-size: 20px;
+    text-decoration: none;
+}
+
+.favCount,
+.starAverage {
+    position: relative;
+    display: inline-block;
+    margin-left: 14px;
+    padding: 3px 8px;
+    border: 1px solid #777;
+    border-radius: 4px;
+    background: #fafafa;
+    color: #777;
+    font-size: 14px;
+}
+
+.favCount:before,
+.starAverage:before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: -12px;
+    margin-top: -4px;
+    border: 4px solid transparent;
+    border-right: 8px solid #FFF;
+    z-index: 2;
+}
+
+.favCount:after,
+.starAverage:after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: -15px;
+    margin-top: -5px;
+    border: 5px solid transparent;
+    border-right: 10px solid #555;
+    z-index: 1;
+}
+
+.star-icon-color {
+    background: #E5A83F;
+    border-radius: 50%;
+}

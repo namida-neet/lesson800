@@ -27,7 +27,6 @@ use Cake\Event\Event;
  */
 class AppController extends Controller
 {
-
     /**
      * Initialization hook method.
      *
@@ -51,5 +50,36 @@ class AppController extends Controller
          * see https://book.cakephp.org/3.0/en/controllers/components/security.html
          */
         //$this->loadComponent('Security');
+
+        $this->loadComponent('Auth', [
+            'loginRedirect' => [
+                'controller' => 'Minibbs',
+                'action' => 'index',
+            ],
+            'logoutRedirect' => [
+                'controller' => 'Users',
+                'action' => 'login',
+            ],
+            'authError' => 'Please login.',
+        ]);
+    }
+
+    public function beforeFilter(Event $event)
+    {
+        $this->Auth->allow([
+            'login',
+            'signup',
+        ]);
+    }
+
+    public function isAuthorized($user)
+    {
+        // 管理者はすべての操作にアクセス可能
+        if (isset($user['role']) && $user['role'] === 'admin') {
+            return true;
+        }
+
+        // デフォルトは拒否
+        return false;
     }
 }
