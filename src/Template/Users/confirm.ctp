@@ -4,12 +4,12 @@
     ],
 ]) ?>
 <dl>
-    <dt class="uppercase">username</dt>
+    <dt>Username</dt>
     <dd><?= h($checkdata['username']) ?></dd>
     <?= $this->Form->hidden('username', [
         'value' => $checkdata['username'],
     ]) ?>
-    <dt class="uppercase">password</dt>
+    <dt>Password</dt>
     <dd><?= '********' ?></dd>
     <?= $this->Form->hidden('password', [
         'value' => $checkdata['password'],
@@ -27,5 +27,5 @@
         '-ok',
     ],
 ]) ?>
+<?= $this->Html->link(__('Return'), ['action' => 'signup'], ['class' => 'cancel-button',]) ?>
 <?= $this->Form->end() ?>
-<?= $this->Html->link(__('戻る'), ['action' => 'signup']) // 変更する ?>

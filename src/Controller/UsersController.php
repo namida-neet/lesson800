@@ -39,6 +39,7 @@ class UsersController extends AppController
 
     public function logout()
     {
+        $this->request->session()->destroy();
         return $this->redirect($this->Auth->logout());
 
     }
@@ -48,13 +49,23 @@ class UsersController extends AppController
         $user = $this->Users->newEntity();
         if ($this->request->is('post')) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
+
+            // ユーザー情報の入力内容確認画面へ移行
             if ($this->request->data['mode'] === 'confirm') {
                 $checkdata = $this->request->data;
-                $this->set(compact('checkdata'));
+
+                $session = $this->request->session()->write('username', $checkdata['username']);
+
+                $this->set(compact('checkdata', 'session'));
+
                 $this->render('confirm');
+
+            // ユーザー情報を登録する
             } elseif ($this->request->data['mode'] === 'savedata') {
                 if ($this->Users->save($user)) {
                     $this->Flash->success(__('The user has been saved.'));
+
+                    $this->request->session()->write('username', $user['username']);
 
                     return $this->redirect([
                         'action' => 'login',
