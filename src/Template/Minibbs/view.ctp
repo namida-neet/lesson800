@@ -14,7 +14,7 @@
 <p>この投稿は削除されたか、URLが間違っています。</p>
 <?php endif; ?>
 <?php if ($authuser['role'] === 'admin' || $authuser['id'] === $post->user->id) : ?>
-<p>
+<p class="view-button">
   <?= $this->Html->link(__('投稿を編集する'), [
       'action' => 'edit',
       $post->id
@@ -23,7 +23,7 @@
   ]) ?>
 </p>
 <?php endif; ?>
-<p>
+<p class="view-button">
   <?= $this->Html->link(__('戻る'), [
       'controller' => 'Minibbs',
       'action' => 'index',
