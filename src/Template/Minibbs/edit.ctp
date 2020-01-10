@@ -18,10 +18,10 @@
 <p>この記事を編集する権限がありません。</p>
 <?php endif; ?>
 <p>
-    <?= $this->Html->link(__('戻る'), [
-        'action' => 'view',
-        $post->id
-    ], [
-        'class' => 'cancel-button',
-    ]) ?>
+  <?= $this->Html->link(__('戻る'), [
+      'action' => 'view',
+      $post->id
+  ], [
+      'class' => 'cancel-button',
+  ]) ?>
 </p>
