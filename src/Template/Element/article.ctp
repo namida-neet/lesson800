@@ -1,5 +1,5 @@
 <div class="msg">
-    <img src="" alt="<?= h($minibbsPost->user->username) ?>のアイコン" width="48" height="48">
+    <?= $this->Html->image('user-icon/' . $minibbsPost->user->icon_file_name, ['alt' => $minibbsPost->user->username . 'のアイコン']); ?>
     <p class="post-message">
         <?= h($minibbsPost->messages) ?>
         <?php if (h($minibbsPost->created) !== h($minibbsPost->modified)) : ?>

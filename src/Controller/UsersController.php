@@ -52,10 +52,21 @@ class UsersController extends AppController
 
             // ユーザー情報の入力内容確認画面へ移行
             if ($this->request->data['mode'] === 'confirm') {
+
+                // アイコン画像をアップロード
+                if (! empty($this->request->data['icon']['tmp_name'])) {
+                    $dir = realpath(WWW_ROOT . "/img/user-icon");
+                    $tmpName = $this->request->data['icon']['tmp_name'];
+                    $iconFileName = $image = date('YmdHis') . $this->request->data['icon']['name'];
+
+                    move_uploaded_file($tmpName, $dir . '/' . $iconFileName);
+                } else {
+                    $iconFileName = '100x100.png';
+                }
+
                 $checkdata = $this->request->data;
-
+                $checkdata['icon_file_name'] = $iconFileName;
                 $session = $this->request->session()->write('username', $checkdata['username']);
-
                 $this->set(compact('checkdata', 'session'));
 
                 $this->render('confirm');
@@ -65,7 +76,7 @@ class UsersController extends AppController
                 if ($this->Users->save($user)) {
                     $this->Flash->success(__('The user has been saved.'));
 
-                    $this->request->session()->write('username', $user['username']);
+                    $this->request->session()->destroy();
 
                     return $this->redirect([
                         'action' => 'login',

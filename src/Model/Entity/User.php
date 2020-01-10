@@ -34,6 +34,7 @@ class User extends Entity
         'username' => true,
         'password' => true,
         'role' => true,
+        'icon_file_name' => true,
         'created' => true,
         'modified' => true,
         'favorites' => true,

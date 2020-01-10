@@ -86,6 +86,11 @@ class UsersTable extends Table
                 'rule' => ['inList', ['admin', 'author']],
             ]);
 
+        $validator
+            ->scalar('icon_file_name')
+            ->maxLength('icon_file_name', 255)
+            ->allowEmptyString('icon_file_name', null, 'create');
+
         return $validator;
     }
 

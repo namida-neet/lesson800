@@ -1,6 +1,6 @@
 <?php if (isset($post)) : ?>
 <div class="msg">
-    <img src="" alt="<?= $post->user->username ?>のアイコン">
+    <p><?= $this->Html->image('user-icon/' . $post->user->icon_file_name, ['alt' => $post->user->username . 'のアイコン']); ?></p>
     <p class="post-message">
         <?= h($post->messages) ?><span class="name">（<?= h($post->user->username) ?>）</span>
     </p>

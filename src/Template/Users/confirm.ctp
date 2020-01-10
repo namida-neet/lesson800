@@ -14,6 +14,13 @@
     <?= $this->Form->hidden('password', [
         'value' => $checkdata['password'],
     ]) ?>
+    <dt>icon</dt>
+    <dd class="user-icon">
+    <?= $this->Html->image('user-icon/' . $checkdata['icon_file_name'], ['alt' => $checkdata['username'] . 'のアイコン']) ?>
+    </dd>
+    <?= $this->Form->hidden('icon_file_name', [
+        'value' => $checkdata['icon_file_name']
+    ]) ?>
 </dl>
 <?= $this->Form->hidden('role',[
     'value' => $checkdata['role'],
