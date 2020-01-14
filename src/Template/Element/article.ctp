@@ -12,45 +12,69 @@
   <div class="post-description">
     <p class="day">
       <?= $this->Html->link(h($minibbsPost->created->i18nFormat('yyyy-MM-dd HH:mm:ss')), [
-          'action' => 'view',
-          $minibbsPost->id
+        'action' => 'view',
+        $minibbsPost->id
       ]) ?>
     </p>
 
     <?php if ($minibbsPost->reply_message_id !== null) : ?>
       <p class="reply_message">
         <?= $this->Html->link(__('返信元のメッセージ'), [
-            'action' => 'view',
-            $minibbsPost->reply_message_id
+          'action' => 'view',
+          $minibbsPost->reply_message_id
         ]) ?>
       </p>
     <?php endif; ?>
   </div><!-- post-description -->
   <div class="reaction-tools">
-  <?php if ($authuser['role'] === 'admin' || $authuser['id'] === $minibbsPost->user->id) : ?>
-    <div class="delete-button">
-      <?= $this->Form->postLink(
-          __('Delete'),
-          [
-              'action' => 'delete',
-              $minibbsPost->id
-          ], [
-              'confirm' => __('Are you sure you want to delete # {0}?', $minibbsPost->id)
-          ]
-      ) ?>
-    </div>
+    <?php if ($authuser['role'] === 'admin' || $authuser['id'] === $minibbsPost->user->id) : ?>
+      <div class="delete-button">
+        <?= $this->Form->postLink(__('Delete'), [
+          'action' => 'delete',
+          $minibbsPost->id
+        ], [
+          'confirm' => __('Are you sure you want to delete # {0}?', $minibbsPost->id)
+        ]) ?>
+      </div>
     <?php endif; ?>
     <p class="res-button">
       <?= $this->Html->link(__('Reply'), [
-          'action' => 'index',
-          '?' => ['reply' => $minibbsPost->id],
+        'action' => 'index',
+        '?' => ['reply' => $minibbsPost->id],
       ]) ?>
     </p>
     <p class="res-button">
       <a href="">Repost</a>
     </p>
+
     <p class="favorite">
-      <a href="">は</a>
+        <?= $this->Form->create('', [
+          'url' => [
+              'controller' => 'Favorites',
+              'action' => 'add',
+          ],
+      ]) ?>
+      <?php
+          echo $this->Form->hidden('user_id', ['value' => $authuser['id']]);
+          echo $this->Form->hidden('post_id', ['value' => $minibbsPost->id]);
+      ?>
+      <?= $this->Form->button(__('♥')) ?>
+      <?= $this->Form->end() ?>
+    </p>
+    <p class="favorite">
+    <p class="favorite">
+      <?= $this->Form->create('', [
+          'url' => [
+              'controller' => 'Favorites',
+              'action' => 'edit',
+          ],
+      ]) ?>
+      <?php
+          echo $this->Form->hidden('user_id', ['value' => $authuser['id']]);
+          echo $this->Form->hidden('post_id', ['value' => $minibbsPost->id]);
+      ?>
+      <?= $this->Form->button(__('♡')) ?>
+      <?= $this->Form->end() ?>
     </p>
     <p class="favCount">
       か

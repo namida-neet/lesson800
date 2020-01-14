@@ -8,7 +8,7 @@
   </h1>
 <?php else : ?>
   <h1>
-    <?= $this->Html->link(__('Minibbs'), ['controller' => 'Minibbs', 'action' => 'index']) ?>
+    <?= $this->Html->link(__('Minibbs'), ['controller' => 'Posts', 'action' => 'index']) ?>
   </h1>
 <?php endif; ?>
 

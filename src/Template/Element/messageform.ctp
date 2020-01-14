@@ -1,7 +1,7 @@
 <?= $this->Form->create($post, [
     'type' => 'post',
     'url' => [
-        'controller' => 'Minibbs',
+        'controller' => 'Posts',
         'action' => 'index',
     ],
     'class' => 'bbs-form',

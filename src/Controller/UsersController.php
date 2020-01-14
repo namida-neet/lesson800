@@ -63,7 +63,7 @@ class UsersController extends AppController
                     $iconFileName = '100x100.png';
                 }
 
-                $checkdata = $this->request->data;
+                $checkdata = $this->request->getData();
                 $checkdata['icon_file_name'] = $iconFileName;
                 $session = $this->request->session()->write('username', $checkdata['username']);
                 $this->set(compact('checkdata', 'session'));

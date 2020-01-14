@@ -12,102 +12,65 @@ use App\Controller\AppController;
  */
 class FavoritesController extends AppController
 {
-    /**
-     * Index method
-     *
-     * @return \Cake\Http\Response|null
-     */
-    public function index()
-    {
-        $this->paginate = [
-            'contain' => ['Users', 'Posts'],
-        ];
-        $favorites = $this->paginate($this->Favorites);
-
-        $this->set(compact('favorites'));
-    }
-
-    /**
-     * View method
-     *
-     * @param string|null $id Favorite id.
-     * @return \Cake\Http\Response|null
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function view($id = null)
-    {
-        $favorite = $this->Favorites->get($id, [
-            'contain' => ['Users', 'Posts'],
-        ]);
-
-        $this->set('favorite', $favorite);
-    }
-
-    /**
-     * Add method
-     *
-     * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
-     */
     public function add()
     {
         $favorite = $this->Favorites->newEntity();
         if ($this->request->is('post')) {
             $favorite = $this->Favorites->patchEntity($favorite, $this->request->getData());
+            $favorite->favorite_score = 1;
             if ($this->Favorites->save($favorite)) {
                 $this->Flash->success(__('The favorite has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect([
+                    'controller' => 'Posts',
+                    'action' => 'index',
+                ]);
             }
             $this->Flash->error(__('The favorite could not be saved. Please, try again.'));
         }
-        $users = $this->Favorites->Users->find('list', ['limit' => 200]);
-        $posts = $this->Favorites->Posts->find('list', ['limit' => 200]);
-        $this->set(compact('favorite', 'users', 'posts'));
+        $this->set(compact('favorite'));
     }
 
-    /**
-     * Edit method
-     *
-     * @param string|null $id Favorite id.
-     * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function edit($id = null)
+    public function edit()
     {
-        $favorite = $this->Favorites->get($id, [
-            'contain' => [],
-        ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $favorite = $this->Favorites->patchEntity($favorite, $this->request->getData());
-            if ($this->Favorites->save($favorite)) {
+        $authuserId = $this->request->getData('user_id');
+        $postId = $this->request->getData('post_id');
+
+        $findFavorite = $this->Favorites->find()
+            ->where(['user_id' => $authuserId])
+            ->andWhere(['post_id' => $postId])
+            ->first();
+        if ($findFavorite->favorite_score === 1) {
+            if ($this->Favorites->updateAll([
+                'favorite_score' => 0,
+            ], [
+                'user_id' => $authuserId,
+                'post_id' => $postId
+            ])) {
                 $this->Flash->success(__('The favorite has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect([
+                    'controller' => 'Posts',
+                    'action' => 'index',
+                ]);
+            }
+            $this->Flash->error(__('The favorite could not be saved. Please, try again.'));
+
+        } elseif ($findFavorite->favorite_score === 0) {
+            if ($this->Favorites->updateAll([
+                'favorite_score' => 1,
+            ], [
+                'user_id' => $authuserId,
+                'post_id' => $postId
+            ])) {
+                $this->Flash->success(__('The favorite has been saved.'));
+
+                return $this->redirect([
+                    'controller' => 'Posts',
+                    'action' => 'index',
+                ]);
             }
             $this->Flash->error(__('The favorite could not be saved. Please, try again.'));
         }
-        $users = $this->Favorites->Users->find('list', ['limit' => 200]);
-        $posts = $this->Favorites->Posts->find('list', ['limit' => 200]);
-        $this->set(compact('favorite', 'users', 'posts'));
-    }
-
-    /**
-     * Delete method
-     *
-     * @param string|null $id Favorite id.
-     * @return \Cake\Http\Response|null Redirects to index.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function delete($id = null)
-    {
-        $this->request->allowMethod(['post', 'delete']);
-        $favorite = $this->Favorites->get($id);
-        if ($this->Favorites->delete($favorite)) {
-            $this->Flash->success(__('The favorite has been deleted.'));
-        } else {
-            $this->Flash->error(__('The favorite could not be deleted. Please, try again.'));
-        }
-
-        return $this->redirect(['action' => 'index']);
     }
 }

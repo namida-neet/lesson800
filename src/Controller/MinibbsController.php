@@ -7,6 +7,8 @@ class MinibbsController extends AppController
 {
     public $useTable = false;
 
+    public $paginate = [];
+
     public function initialize()
     {
         parent::initialize();
@@ -15,8 +17,8 @@ class MinibbsController extends AppController
 
         $this->loadModel('Users');
         $this->loadModel('Posts');
-        $this->loadModel('Favorite');
-        $this->loadModel('Star');
+        $this->loadModel('Favorites');
+        $this->loadModel('Stars');
 
         $this->set('authuser', $this->Auth->user());
 
@@ -27,17 +29,26 @@ class MinibbsController extends AppController
     public function index()
     {
         // 投稿されたメッセージの表示
-        $minibbsPosts = $this->paginate('Posts', [
-            'contain' => ['Users', 'Favorites', 'Stars'],
-            'order' => ['created' => 'desc'],
-            'limit' => 10,
-        ]);
+        $query = $this->Posts->find()
+            ->contain(['Users', 'Favorites', 'Stars'])
+            ->order(['Posts.created' => 'desc'])
+            ->limit(10);
+            // ->where(['Favorites.user_id' => $this->Auth->user('id')]);
+
+
+
+        // $findFavoritesQuery = $this->Favorites->find()
+        //     ->contain(['Posts'])
+        //     ->where(['Favorites.user_id' => $this->Auth->user('id')]);
+        // $favorites = $this->paginate($findFavoritesQuery);
+
+        $minibbsPosts = $this->paginate($query);
 
         $this->set(compact('minibbsPosts'));
 
         // 投稿フォーム（Add）
         if ($this->request->is('post')) {
-            $message = $this->request->data['Posts'];
+            $message = $this->request->getData();
             $post = $this->Posts->newEntity($message);
 
             $post->user_id = $this->Auth->user('id');

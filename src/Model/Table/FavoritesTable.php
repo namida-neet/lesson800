@@ -85,4 +85,15 @@ class FavoritesTable extends Table
 
         return $rules;
     }
+
+    # 疎通確認済みの条件
+    public function findFavorite(Query $query, array $options)
+    {
+        $userId = $options['user_id'];
+        $postId = $options['post_id'];
+        return $query->where([
+            'Favorites.user_id' => $userId,
+            'Favorites.post_id' => $postId,
+        ]);
+    }
 }
