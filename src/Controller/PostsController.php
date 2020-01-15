@@ -12,7 +12,7 @@ class PostsController extends AppController
 
         $this->loadComponent('Paginator');
 
-        $this->loadModel('Users');
+        // $this->loadModel('Users');
         $this->loadModel('Favorites');
         $this->loadModel('Stars');
 
@@ -68,13 +68,20 @@ class PostsController extends AppController
         $this->set(compact('post'));
     }
 
-    public function view($id = null)
+    public function view(int $id = null)
     {
         $post = $this->Posts->get($id, [
             'contain' => ['Users', 'Favorites', 'Stars'],
         ]);
 
-        $this->set('post', $post);
+        $replyPosts = $this->Posts
+            ->find()
+            ->contain(['Users'])
+            ->where(['reply_message_id' => $id])
+            ->order(['Posts.created' => 'desc'])
+            ->all();
+
+        $this->set(compact('post', 'replyPosts'));
     }
 
     public function edit($id = null)

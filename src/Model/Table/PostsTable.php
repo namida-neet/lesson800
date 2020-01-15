@@ -101,8 +101,6 @@ class PostsTable extends Table
     public function buildRules(RulesChecker $rules)
     {
         $rules->add($rules->existsIn(['user_id'], 'Users'));
-//        $rules->add($rules->existsIn(['reply_message_id'], 'ReplyMessages'));
-//        $rules->add($rules->existsIn(['repost_message_id'], 'RepostMessages'));
 
         return $rules;
     }

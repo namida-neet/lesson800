@@ -489,6 +489,12 @@ li {
     margin-right: 16px;
     border-radius: 50%;
 }
+.-reply {
+    margin-left: 24px;
+}
+.reply-container {
+    margin-top: 20px;
+}
 
 /* --------------------------------
 いいねボタン
