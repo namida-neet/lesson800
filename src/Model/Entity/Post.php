@@ -29,9 +29,9 @@ class Post extends Entity
      * be mass assigned. For security purposes, it is advised to set '*' to false
      * (or remove it), and explicitly make individual fields accessible as needed.
      *
-     * @var array
+     * @var array // 各プロパティが一括代入できるかどうかの情報
      */
-    protected $_accessible = [ // 各プロパティが一括代入できるかどうかの情報
+    protected $_accessible = [
         'messages' => true,
         'user_id' => true,
         'reply_message_id' => true,

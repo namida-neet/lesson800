@@ -4,8 +4,15 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 
+/**
+ * PostsController
+ */
+
 class PostsController extends AppController
 {
+    /**
+     * @inheritdoc
+    */
     public function initialize()
     {
         parent::initialize();
@@ -21,7 +28,11 @@ class PostsController extends AppController
         $this->viewBuilder()->setLayout('minibbs');
     }
 
-    // トップページ
+    /**
+     * メッセージ一覧画面/メッセージ投稿/返信メッセージ投稿
+     *
+     * @return \Cake\Http\Response|void
+     */
     public function index()
     {
         // 投稿メッセージの表示
@@ -68,11 +79,19 @@ class PostsController extends AppController
         $this->set(compact('post'));
     }
 
+    /**
+     * メッセージ詳細画面
+     *
+     * @param int $id メッセージID
+     * @return void
+     */
     public function view(int $id = null)
     {
-        $post = $this->Posts->get($id, [
-            'contain' => ['Users', 'Favorites', 'Stars'],
-        ]);
+        $post = $this->Posts
+            ->find()
+            ->contain(['Users'])
+            ->where(['Posts.id' => $id])
+            ->first();
 
         $replyPosts = $this->Posts
             ->find()
@@ -84,7 +103,13 @@ class PostsController extends AppController
         $this->set(compact('post', 'replyPosts'));
     }
 
-    public function edit($id = null)
+    /**
+     * メッセージ編集画面
+     *
+     * @param int $id メッセージID
+     * @return int $id メッセージID メッセージ編集処理後にメッセージ詳細画面へ遷移する
+     */
+    public function edit(int $id = null)
     {
         $post = $this->Posts->get($id, [
             'contain' => [],
@@ -102,17 +127,26 @@ class PostsController extends AppController
             }
         } else {
             $this->Flash->error(__('この記事を編集する権限がありません。'));
+
             return $this->redirect(['action' => 'view', $id]);
         }
 
         $this->set(compact('post'));
     }
 
-    public function delete($id = null)
+    /**
+     * メッセージ削除処理
+     *
+     * @param int $id メッセージID
+     * @return void メッセージ削除処理後にメッセージ一覧画面へ遷移する
+     */
+    public function delete(int $id = null)
     {
-        $this->request->allowMethod(['post', 'delete']);
+        $this->request->allowMethod(['post']);
+
         $post = $this->Posts->get($id);
 
+        // メッセージを削除できるのは管理者と投稿者のみ
         if ($this->Auth->user('role') === 'admin' || $this->Auth->user('id') && $post->user_id) {
             if ($this->Posts->delete($post)) {
                 $this->Flash->success(__('The post has been deleted.'));
@@ -121,6 +155,7 @@ class PostsController extends AppController
             }
         } else {
             $this->Flash->error(__('この記事を削除する権限がありません。'));
+
             return $this->redirect(['action' => 'index']);
         }
 
