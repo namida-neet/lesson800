@@ -81,7 +81,11 @@
       <?= $this->Form->end() ?>
     </p>
     <p class="favCount">
-      か
+      <?php if (! isset($minibbsPost->favorites_count)) : ?>
+        -
+      <?php else : ?>
+        <?= h($minibbsPost->favorites_count) ?>
+      <?php endif; ?>
     </p>
     <p class="star">
       <a href="">す</a>

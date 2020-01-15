@@ -16,13 +16,6 @@
 <!-- 投稿一覧表示 -->
 <?php foreach ($minibbsPosts as $minibbsPost) : ?>
   <?= $this->element('article', ['minibbsPost' => $minibbsPost]) ?>
-  <?php foreach ($minibbsPost['favorites'] as $favoritetest) : ?>
-  <?php if (array_search($authuser['id'], $favoritetest)) : ?>
-  ある
-  <?php else : ?>
-  ない
-  <?php endif; ?>
-  <?php endforeach; ?>
 <?php endforeach; ?>
 <!--投稿一覧表示ここまで-->
 

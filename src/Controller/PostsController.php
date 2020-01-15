@@ -36,12 +36,18 @@ class PostsController extends AppController
     public function index()
     {
         // 投稿メッセージの表示
-        $this->paginate = [
-            'contain' => ['Users', 'Favorites', 'Stars'],
-            'order' => ['created' => 'desc'],
+        $query = $this->Posts->find();
+        $query
+            ->contain(['Users'])
+            ->select(['favorites_count' => $query->func()->sum('Favorites.favorite_score')])
+            ->leftJoinWith('Favorites')
+            ->group(['Posts.id'])
+            ->enableAutoFields(true);
+
+        $minibbsPosts = $this->paginate($query, [
+            'order' => ['Posts.id' => 'DESC'],
             'limit' => 10,
-        ];
-        $minibbsPosts = $this->paginate($this->Posts);
+        ]);
 
         $this->set(compact('minibbsPosts'));
 
@@ -111,13 +117,13 @@ class PostsController extends AppController
      */
     public function edit(int $id = null)
     {
-        $post = $this->Posts->get($id, [
-            'contain' => [],
-        ]);
+        $post = $this->Posts->get($id);
 
+        // メッセージを編集できるのは管理者と投稿者のみ
         if ($this->Auth->user('role') === 'admin' || $this->Auth->user('id') && $post->user_id) {
             if ($this->request->is(['patch', 'post', 'put'])) {
                 $post = $this->Posts->patchEntity($post, $this->request->getData());
+
                 if ($this->Posts->save($post)) {
                     $this->Flash->success(__('The post has been saved.'));
 

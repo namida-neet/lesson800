@@ -38,7 +38,7 @@ class Post extends Entity
         'repost_message_id' => true,
         'created' => true,
         'modified' => true,
-        'user' => true,
+        'users' => true,
         'favorites' => true,
         'stars' => true,
     ];
