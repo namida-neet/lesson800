@@ -1,5 +1,9 @@
 <div class="msg">
+<?php if ($minibbsPost->user->icon_file_name === null) : ?>
+  <?= $this->Html->image('user-icon/' . '100x100.png', ['alt' => $minibbsPost->user->username . 'のアイコン']); ?>
+<?php else : ?>
   <?= $this->Html->image('user-icon/' . $minibbsPost->user->icon_file_name, ['alt' => $minibbsPost->user->username . 'のアイコン']); ?>
+<?php endif; ?>
   <p class="post-message">
     <?= h($minibbsPost->messages) ?>
     <?php if (h($minibbsPost->created) !== h($minibbsPost->modified)) : ?>

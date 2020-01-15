@@ -38,11 +38,11 @@ class PostsTable extends Table
     {
         parent::initialize($config);
 
-        $this->setTable('posts');
-        $this->setDisplayField('id');
-        $this->setPrimaryKey('id');
+        $this->setTable('posts'); // 使用されるテーブル名
+        $this->setDisplayField('id'); // list形式でデータ取得する際に使用されるカラム名
+        $this->setPrimaryKey('id'); // プライマリーキーとなるカラム名
 
-        $this->addBehavior('Timestamp');
+        $this->addBehavior('Timestamp'); // createdおよびmodifiedカラムを自動設定する
 
         $this->belongsTo('Users', [
             'foreignKey' => 'user_id',

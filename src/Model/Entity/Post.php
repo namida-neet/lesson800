@@ -31,7 +31,7 @@ class Post extends Entity
      *
      * @var array
      */
-    protected $_accessible = [
+    protected $_accessible = [ // 各プロパティが一括代入できるかどうかの情報
         'messages' => true,
         'user_id' => true,
         'reply_message_id' => true,
