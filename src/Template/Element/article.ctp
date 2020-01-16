@@ -50,43 +50,8 @@
     <p class="res-button">
       <a href="">Repost</a>
     </p>
+    <?= $this->element('favorite', ['minibbsPost' => $minibbsPost]) ?>
 
-    <p class="favorite">
-        <?= $this->Form->create('', [
-          'url' => [
-              'controller' => 'Favorites',
-              'action' => 'add',
-          ],
-      ]) ?>
-      <?php
-          echo $this->Form->hidden('user_id', ['value' => $authuser['id']]);
-          echo $this->Form->hidden('post_id', ['value' => $minibbsPost->id]);
-      ?>
-      <?= $this->Form->button(__('♥')) ?>
-      <?= $this->Form->end() ?>
-    </p>
-    <p class="favorite">
-    <p class="favorite">
-      <?= $this->Form->create('', [
-          'url' => [
-              'controller' => 'Favorites',
-              'action' => 'edit',
-          ],
-      ]) ?>
-      <?php
-          echo $this->Form->hidden('user_id', ['value' => $authuser['id']]);
-          echo $this->Form->hidden('post_id', ['value' => $minibbsPost->id]);
-      ?>
-      <?= $this->Form->button(__('♡')) ?>
-      <?= $this->Form->end() ?>
-    </p>
-    <p class="favCount">
-      <?php if (! isset($minibbsPost->favorites_count)) : ?>
-        -
-      <?php else : ?>
-        <?= h($minibbsPost->favorites_count) ?>
-      <?php endif; ?>
-    </p>
     <p class="star">
       <a href="">す</a>
     </p>

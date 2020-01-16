@@ -499,11 +499,14 @@ li {
 /* --------------------------------
 いいねボタン
 -------------------------------- */
-.favorite a {
+.favorite button {
     margin-left: 16px;
+    border-style: none;
+    background-color: inherit;
     color: #BB1850;
     font-size: 20px;
     text-decoration: none;
+    cursor: pointer;
 }
 .star {
     margin-left: 16px;

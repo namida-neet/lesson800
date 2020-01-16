@@ -38,7 +38,7 @@ class PostsController extends AppController
         // 投稿メッセージの表示
         $query = $this->Posts->find();
         $query
-            ->contain(['Users'])
+            ->contain(['Users', 'Favorites'])
             ->select(['favorites_count' => $query->func()->sum('Favorites.favorite_score')])
             ->leftJoinWith('Favorites')
             ->group(['Posts.id'])
@@ -146,7 +146,7 @@ class PostsController extends AppController
      * @param int $id メッセージID
      * @return void メッセージ削除処理後にメッセージ一覧画面へ遷移する
      */
-    public function delete(int $id = null)
+    public function cancel(int $id = null)
     {
         $this->request->allowMethod(['post']);
 

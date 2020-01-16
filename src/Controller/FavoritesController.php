@@ -31,6 +31,28 @@ class FavoritesController extends AppController
         $this->set(compact('favorite'));
     }
 
+    public function delete()
+    {
+        $this->request->allowMethod(['post', 'delete']);
+
+        $param = [
+            'user_id' => $this->request->getData('user_id'), // 投稿者
+            'post_id' => $this->request->getData('post_id'),
+        ];
+
+        if ($this->Favorites->deleteAll($param)) {
+            $this->Flash->success(__('The favorite has been deleted.'));
+        } else {
+            $this->Flash->error(__('The favorite could not be deleted. Please, try again.'));
+        }
+
+        return $this->redirect([
+            'controller' => 'Posts',
+            'action' => 'index'
+        ]);
+    }
+
+    // 使わないことにした
     public function edit()
     {
         $authuserId = $this->request->getData('user_id');
