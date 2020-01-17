@@ -36,15 +36,7 @@ class PostsController extends AppController
     public function index()
     {
         // 投稿メッセージの表示
-        $query = $this->Posts->find();
-        $query
-            ->contain(['Users', 'Favorites'])
-            ->select(['favorites_count' => $query->func()->sum('Favorites.favorite_score')])
-            ->leftJoinWith('Favorites')
-            ->group(['Posts.id'])
-            ->enableAutoFields(true);
-
-        $minibbsPosts = $this->paginate($query, [
+        $minibbsPosts = $this->paginate($this->Posts->findMinibbsPosts(), [
             'order' => ['Posts.id' => 'DESC'],
             'limit' => 10,
         ]);

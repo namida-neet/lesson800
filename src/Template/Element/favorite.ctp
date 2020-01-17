@@ -38,6 +38,6 @@
         <?php if (!isset($minibbsPost->favorites_count)) : ?>
             0
         <?php else : ?>
-            <?= h($minibbsPost->favorites_count) ?>
+            <?= $this->Number->format($minibbsPost->favorites_count) ?>
         <?php endif; ?>
     </p>

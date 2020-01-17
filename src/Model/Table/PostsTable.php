@@ -104,4 +104,24 @@ class PostsTable extends Table
 
         return $rules;
     }
+
+    /**
+     * 投稿の一覧を取得する（＋いいね）
+     *
+     * @param
+     * @return 投稿一覧（＋いいね）クエリ
+     */
+    public function findMinibbsPosts()
+    {
+        $query = $this->find();
+        $query
+            ->contain(['Users', 'Favorites'])
+            ->select(['favorites_count' => $query->func()->sum('Favorites.favorite_score')])
+            ->leftJoinWith('Favorites')
+            ->group(['Posts.id'])
+            ->enableAutoFields(true);
+
+        return $query;
+    }
+
 }
