@@ -109,7 +109,7 @@ class PostsTable extends Table
      * 投稿の一覧を取得する（＋いいね）
      *
      * @param
-     * @return 投稿一覧（＋いいね）クエリ
+     * @return \Cake\ORM\Query $query
      */
     public function findMinibbsPosts()
     {

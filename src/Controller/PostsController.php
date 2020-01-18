@@ -31,7 +31,7 @@ class PostsController extends AppController
     /**
      * メッセージ一覧画面/メッセージ投稿/返信メッセージ投稿
      *
-     * @return \Cake\Http\Response|void
+     * @return \Cake\Http\Response|null
      */
     public function index()
     {
@@ -105,7 +105,7 @@ class PostsController extends AppController
      * メッセージ編集画面
      *
      * @param int $id メッセージID
-     * @return int $id メッセージID メッセージ編集処理後にメッセージ詳細画面へ遷移する
+     * @return \Cake\Http\Response|null
      */
     public function edit(int $id = null)
     {
@@ -136,7 +136,7 @@ class PostsController extends AppController
      * メッセージ削除処理
      *
      * @param int $id メッセージID
-     * @return void メッセージ削除処理後にメッセージ一覧画面へ遷移する
+     * @return \Cake\Http\Response|null
      */
     public function cancel(int $id = null)
     {
