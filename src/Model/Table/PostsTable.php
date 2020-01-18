@@ -79,14 +79,14 @@ class PostsTable extends Table
     public function validationDefault(Validator $validator)
     {
         $validator
-            ->integer('id')
-            ->allowEmptyString('id', null, 'create');
+            ->integer('id', 'IDが不正です')
+            ->allowEmptyString('id', 'create', 'IDが不正です');
 
         $validator
-            ->scalar('messages')
-            ->maxLength('messages', 255)
-            ->requirePresence('messages', 'create')
-            ->notEmptyString('messages');
+            ->scalar('messages', 'メッセージが不正です')
+            ->maxLength('messages', 50, '50文字以内で入力してください')
+            ->requirePresence('messages', 'create', 'メッセージが不正です')
+            ->notEmptyString('messages', 'メッセージが入力されていません');
 
         return $validator;
     }
