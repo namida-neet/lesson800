@@ -1,4 +1,5 @@
 <?= $this->Form->create($user, [
+    'type' => 'file',
     'class' => 'signup-form',
 ]) ?>
 <?php if (! empty($this->request->session())) : ?><!-- 入力内容確認画面から戻った場合はユーザーネームを保持 -->
@@ -26,6 +27,10 @@
         ],
     ],
 ]) ?>
+<div>
+<label for="icon" class="label-name">icon</label>
+<?= $this->Form->file('icon') ?>
+</div>
 <?= $this->Form->hidden('role',[
     'value' => 'author'
 ]) ?>

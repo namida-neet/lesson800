@@ -234,7 +234,7 @@ input[type="text"], input[type="password"] {
 
 .cancel-button {
     display: inline-block;
-    margin-left: 24px;
+    margin: 16px 0 0 24px;
     padding: 7px 32px;
     border-style: none;
     border: 1px solid #ccc;
@@ -247,6 +247,9 @@ input[type="text"], input[type="password"] {
 .cancel-button:focus {
     outline: 0;
     border: 3px solid #E5A83F;
+}
+.view-button {
+    display: inline-block;
 }
 
 /* thankyou.phpのページ
@@ -311,6 +314,8 @@ BBS
 }
 
 .user-icon img {
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
     vertical-align: bottom;
 }

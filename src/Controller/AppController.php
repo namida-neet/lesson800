@@ -53,7 +53,7 @@ class AppController extends Controller
 
         $this->loadComponent('Auth', [
             'loginRedirect' => [
-                'controller' => 'Minibbs',
+                'controller' => 'Posts',
                 'action' => 'index',
             ],
             'logoutRedirect' => [
