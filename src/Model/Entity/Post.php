@@ -29,7 +29,7 @@ class Post extends Entity
      * be mass assigned. For security purposes, it is advised to set '*' to false
      * (or remove it), and explicitly make individual fields accessible as needed.
      *
-     * @var array
+     * @var array // 各プロパティが一括代入できるかどうかの情報
      */
     protected $_accessible = [
         'messages' => true,
@@ -38,9 +38,7 @@ class Post extends Entity
         'repost_message_id' => true,
         'created' => true,
         'modified' => true,
-        'user' => true,
-//        'reply_message' => true,
-//        'repost_message' => true,
+        'users' => true,
         'favorites' => true,
         'stars' => true,
     ];

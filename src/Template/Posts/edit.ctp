@@ -23,9 +23,9 @@
         '-bbs-message',
       ],
     ]) ?>
+    <?= $this->Form->end() ?>
     <!-- 投稿フォームここまで -->
   </div><!-- post-area -->
-  <?= $this->Form->end() ?>
 <?php else : ?>
   <p>この記事を編集する権限がありません。</p>
 <?php endif; ?>

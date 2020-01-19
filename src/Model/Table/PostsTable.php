@@ -38,11 +38,11 @@ class PostsTable extends Table
     {
         parent::initialize($config);
 
-        $this->setTable('posts');
-        $this->setDisplayField('id');
-        $this->setPrimaryKey('id');
+        $this->setTable('posts'); // 使用されるテーブル名
+        $this->setDisplayField('id'); // list形式でデータ取得する際に使用されるカラム名
+        $this->setPrimaryKey('id'); // プライマリーキーとなるカラム名
 
-        $this->addBehavior('Timestamp');
+        $this->addBehavior('Timestamp'); // createdおよびmodifiedカラムを自動設定する
 
         $this->belongsTo('Users', [
             'foreignKey' => 'user_id',
@@ -79,14 +79,14 @@ class PostsTable extends Table
     public function validationDefault(Validator $validator)
     {
         $validator
-            ->integer('id')
-            ->allowEmptyString('id', null, 'create');
+            ->integer('id', 'IDが不正です')
+            ->allowEmptyString('id', 'create', 'IDが不正です');
 
         $validator
-            ->scalar('messages')
-            ->maxLength('messages', 255)
-            ->requirePresence('messages', 'create')
-            ->notEmptyString('messages');
+            ->scalar('messages', 'メッセージが不正です')
+            ->maxLength('messages', 50, '50文字以内で入力してください')
+            ->requirePresence('messages', 'create', 'メッセージが不正です')
+            ->notEmptyString('messages', 'メッセージが入力されていません');
 
         return $validator;
     }
@@ -101,9 +101,27 @@ class PostsTable extends Table
     public function buildRules(RulesChecker $rules)
     {
         $rules->add($rules->existsIn(['user_id'], 'Users'));
-//        $rules->add($rules->existsIn(['reply_message_id'], 'ReplyMessages'));
-//        $rules->add($rules->existsIn(['repost_message_id'], 'RepostMessages'));
 
         return $rules;
     }
+
+    /**
+     * 投稿の一覧を取得する（＋いいね）
+     *
+     * @param
+     * @return \Cake\ORM\Query $query
+     */
+    public function findMinibbsPosts()
+    {
+        $query = $this->find();
+        $query
+            ->contain(['Users', 'Favorites'])
+            ->select(['favorites_count' => $query->func()->sum('Favorites.favorite_score')])
+            ->leftJoinWith('Favorites')
+            ->group(['Posts.id'])
+            ->enableAutoFields(true);
+
+        return $query;
+    }
+
 }

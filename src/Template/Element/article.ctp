@@ -1,5 +1,9 @@
 <div class="msg">
+<?php if ($minibbsPost->user->icon_file_name === null) : ?>
+  <?= $this->Html->image('user-icon/' . '100x100.png', ['alt' => $minibbsPost->user->username . 'のアイコン']); ?>
+<?php else : ?>
   <?= $this->Html->image('user-icon/' . $minibbsPost->user->icon_file_name, ['alt' => $minibbsPost->user->username . 'のアイコン']); ?>
+<?php endif; ?>
   <p class="post-message">
     <?= h($minibbsPost->messages) ?>
     <?php if (h($minibbsPost->created) !== h($minibbsPost->modified)) : ?>
@@ -46,39 +50,8 @@
     <p class="res-button">
       <a href="">Repost</a>
     </p>
+    <?= $this->element('favorite', ['minibbsPost' => $minibbsPost]) ?>
 
-    <p class="favorite">
-        <?= $this->Form->create('', [
-          'url' => [
-              'controller' => 'Favorites',
-              'action' => 'add',
-          ],
-      ]) ?>
-      <?php
-          echo $this->Form->hidden('user_id', ['value' => $authuser['id']]);
-          echo $this->Form->hidden('post_id', ['value' => $minibbsPost->id]);
-      ?>
-      <?= $this->Form->button(__('♥')) ?>
-      <?= $this->Form->end() ?>
-    </p>
-    <p class="favorite">
-    <p class="favorite">
-      <?= $this->Form->create('', [
-          'url' => [
-              'controller' => 'Favorites',
-              'action' => 'edit',
-          ],
-      ]) ?>
-      <?php
-          echo $this->Form->hidden('user_id', ['value' => $authuser['id']]);
-          echo $this->Form->hidden('post_id', ['value' => $minibbsPost->id]);
-      ?>
-      <?= $this->Form->button(__('♡')) ?>
-      <?= $this->Form->end() ?>
-    </p>
-    <p class="favCount">
-      か
-    </p>
     <p class="star">
       <a href="">す</a>
     </p>
