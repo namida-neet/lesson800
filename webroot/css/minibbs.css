@@ -518,6 +518,10 @@ li {
 /* --------------------------------
 いいねボタン
 -------------------------------- */
+.favorite.hide {
+    display: none;
+}
+
 .favorite button {
     margin-left: 16px;
     border-style: none;

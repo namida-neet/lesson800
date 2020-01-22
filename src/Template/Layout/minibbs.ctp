@@ -33,10 +33,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <?= $this->Html->css('minibbs.css') ?>
     <?= $this->Html->css('flashmessage.css') ?>
     <script src="https://kit.fontawesome.com/ccf5e700a2.js" crossorigin="anonymous"></script>
-
-    <?= $this->fetch('meta') ?>
-    <?= $this->fetch('css') ?>
-    <?= $this->fetch('script') ?>
+    <?= $this->Html->script('//ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js') ?>
 </head>
 
 <body>
@@ -49,6 +46,8 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
             <?= $this->fetch('content') ?>
         </div>
     </div>
+<?= $this->Html->script('message-max-length') ?>
+<?= $this->Html->script('favorite-button-change') ?>
 </body>
 
 </html>
