@@ -86,14 +86,18 @@ class FavoritesTable extends Table
         return $rules;
     }
 
-    # 疎通確認済みの条件
-    public function findFavorite(Query $query, array $options)
+  /**
+   * いいねの数を数える
+   *
+   * @param int $post_id
+   * @return \Cake\ORM\Query $query
+   */
+    public function countFavorite(int $post_id)
     {
-        $userId = $options['user_id'];
-        $postId = $options['post_id'];
-        return $query->where([
-            'Favorites.user_id' => $userId,
-            'Favorites.post_id' => $postId,
+        $query = $this->find();
+        $query->where([
+            'post_id' => $post_id,
         ]);
+        return $query;
     }
 }
