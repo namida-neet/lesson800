@@ -12,6 +12,12 @@ use App\Controller\AppController;
  */
 class FavoritesController extends AppController
 {
+    /**
+     * いいねを追加
+     *
+     * @param 
+     * @return \Cake\Http\Response
+     */
     public function add()
     {
         $this->autoRender = false;
@@ -25,15 +31,20 @@ class FavoritesController extends AppController
             $favorite->favorite_score = 1;
 
             if ($this->Favorites->save($favorite)) {
-                $this->Flash->success(__('The favorite has been saved.'));
-
-                $this->response->body(json_encode(['result' => $received_data]));
+                $count = $this->Favorites->countFavorite($favorite->post_id)->count();
+                $this->response->body(json_encode(['received_data' => $received_data, 'count' => $count]));
                 return;
             }
             $this->Flash->error(__('The favorite could not be saved. Please, try again.'));
         }
     }
 
+    /**
+     * いいねを取り消し
+     *
+     * @param 
+     * @return \Cake\Http\Response
+     */
     public function delete()
     {
         $this->autoRender = false;
@@ -46,9 +57,8 @@ class FavoritesController extends AppController
             $received_data = $this->request->getData();
 
             if ($this->Favorites->deleteAll($param)) {
-                $this->Flash->success(__('The favorite has been deleted.'));
-
-                $this->response->body(json_encode(['result' => $received_data]));
+                $count = $this->Favorites->countFavorite($this->request->getData('post_id'))->count();
+                $this->response->body(json_encode(['received_data' => $received_data, 'count' => $count]));
                 return;
             } else {
                 $this->Flash->error(__('The favorite could not be deleted. Please, try again.'));
