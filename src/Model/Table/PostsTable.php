@@ -116,7 +116,7 @@ class PostsTable extends Table
         $query = $this->find();
         $query
             ->contain(['Users', 'Favorites'])
-            ->select(['favorites_count' => $query->func()->sum('Favorites.favorite_score')])
+            ->select(['favorites_count' => $query->func()->count('Favorites.favorite_score')])
             ->leftJoinWith('Favorites')
             ->group(['Posts.id'])
             ->enableAutoFields(true);

@@ -42,7 +42,7 @@
         <?= $this->Form->end() ?>
     </div>
 <p class="favCount">
-    <?php if (!isset($minibbsPost->favorites_count)) : ?>
+    <?php if (! isset($minibbsPost->favorites_count)) : ?>
         0
     <?php else : ?>
         <?= $this->Number->format($minibbsPost->favorites_count) ?>
