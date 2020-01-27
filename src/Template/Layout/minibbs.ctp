@@ -30,8 +30,9 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 
     <!--  $this->Html->css('base.css')  -->
     <!--  $this->Html->css('style.css')  -->
-    <?= $this->Html->css('minibbs.css') ?>
-    <?= $this->Html->css('flashmessage.css') ?>
+    <?= $this->Html->css('minibbs') ?>
+    <?= $this->Html->css('flashmessage') ?>
+    <?= $this->Html->css('user-icon-dnd-area') ?>
     <script src="https://kit.fontawesome.com/ccf5e700a2.js" crossorigin="anonymous"></script>
     <?= $this->Html->script('//ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js') ?>
 </head>
@@ -48,6 +49,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     </div>
 <?= $this->Html->script('message-max-length') ?>
 <?= $this->Html->script('favorite-button-change') ?>
+<?= $this->Html->script('user-icon-dnd') ?>
 </body>
 
 </html>

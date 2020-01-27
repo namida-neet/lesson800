@@ -11,6 +11,7 @@ $(function () {
             data: param,
             timeout: 10000,
         }).done(function (result) {
+            console.log(result);
             $('#addfavorite' + result['received_data']['post_id']).addClass('hide');
             $('#deletefavorite' + result['received_data']['post_id']).removeClass('hide');
             $('#favCount' + result['received_data']['post_id']).text(result['count']);
@@ -31,6 +32,7 @@ $(function () {
             data: param,
             timeout: 10000,
         }).done(function (result) {
+            console.log(result);
             $('#addfavorite' + result['received_data']['post_id']).removeClass('hide');
             $('#deletefavorite' + result['received_data']['post_id']).addClass('hide');
             $('#favCount' + result['received_data']['post_id']).text(result['count']);

@@ -1,0 +1,59 @@
+.user-icon-dnd-wrapper {
+  position: relative;
+  width: 100px;
+  height: 100px;
+}
+
+#preview_field {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100px;
+  height: 100px;
+  /* border: 1px dashed #777;
+  border-radius: 8px; */
+}
+
+#preview_field img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+#drop_area {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100px;
+  height: 100px;
+  border: 1px dashed #aaa;
+  border-radius: 8px;
+  color: #aaa;
+  font-size: 12px;
+  text-align: center;
+  cursor: pointer;
+}
+
+#icon_clear_button {
+  display: none;
+  position: absolute;
+  top: -4px;
+  right: -8px;
+  width: 24px;
+  height: 24px;
+  background: #fafafa;
+  border: 1px solid #777;
+  border-radius: 50%;
+  color: #777;
+  text-align: center;
+  line-height: 24px;
+  cursor: pointer;
+}
+
+#input_file {
+    display: none;
+}
