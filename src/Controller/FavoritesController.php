@@ -12,44 +12,60 @@ use App\Controller\AppController;
  */
 class FavoritesController extends AppController
 {
+    /**
+     * いいねを追加
+     *
+     * @param 
+     * @return \Cake\Http\Response
+     */
     public function add()
     {
-        $favorite = $this->Favorites->newEntity();
-        if ($this->request->is('post')) {
-            $favorite = $this->Favorites->patchEntity($favorite, $this->request->getData());
-            $favorite->favorite_score = 1;
-            if ($this->Favorites->save($favorite)) {
-                $this->Flash->success(__('The favorite has been saved.'));
+        $this->autoRender = false;
 
-                return $this->redirect([
-                    'controller' => 'Posts',
-                    'action' => 'index',
-                ]);
+        $favorite = $this->Favorites->newEntity();
+
+        if ($this->request->is('ajax')) {
+            $received_data = $this->request->getData();
+
+            $favorite->user_id = $this->request->getData('user_id');
+            $favorite->post_id = $this->request->getData('post_id');
+            $favorite->favorite_score = 1;
+
+            if ($this->Favorites->save($favorite)) {
+                $count = $this->Favorites->countFavorite($favorite->post_id)->count();
+                $this->response->body(json_encode(['received_data' => $received_data, 'count' => $count]));
+                return;
             }
             $this->Flash->error(__('The favorite could not be saved. Please, try again.'));
         }
-        $this->set(compact('favorite'));
     }
 
+    /**
+     * いいねを取り消し
+     *
+     * @param 
+     * @return \Cake\Http\Response
+     */
     public function delete()
     {
-        $this->request->allowMethod(['post', 'delete']);
+        $this->autoRender = false;
 
-        $param = [
-            'user_id' => $this->request->getData('user_id'), // 投稿者
-            'post_id' => $this->request->getData('post_id'),
-        ];
+        if ($this->request->is('ajax')) {
+            $received_data = $this->request->getData();
 
-        if ($this->Favorites->deleteAll($param)) {
-            $this->Flash->success(__('The favorite has been deleted.'));
-        } else {
-            $this->Flash->error(__('The favorite could not be deleted. Please, try again.'));
+            $param = [
+                'user_id' => $this->request->getData('user_id'),
+                'post_id' => $this->request->getData('post_id'),
+            ];
+
+            if ($this->Favorites->deleteAll($param)) {
+                $count = $this->Favorites->countFavorite($this->request->getData('post_id'))->count();
+                $this->response->body(json_encode(['received_data' => $received_data, 'count' => $count]));
+                return;
+            } else {
+                $this->Flash->error(__('The favorite could not be deleted. Please, try again.'));
+            }
         }
-
-        return $this->redirect([
-            'controller' => 'Posts',
-            'action' => 'index'
-        ]);
     }
 
     // 使わないことにした
