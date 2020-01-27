@@ -320,6 +320,7 @@ BBS
     height: 60px;
     border-radius: 50%;
     vertical-align: bottom;
+    object-fit: cover;
 }
 
 .user-name {
