@@ -26,6 +26,7 @@ class FavoritesController extends AppController
 
         if ($this->request->is('ajax')) {
             $received_data = $this->request->getData();
+
             $favorite->user_id = $this->request->getData('user_id');
             $favorite->post_id = $this->request->getData('post_id');
             $favorite->favorite_score = 1;
@@ -50,11 +51,12 @@ class FavoritesController extends AppController
         $this->autoRender = false;
 
         if ($this->request->is('ajax')) {
+            $received_data = $this->request->getData();
+
             $param = [
                 'user_id' => $this->request->getData('user_id'),
                 'post_id' => $this->request->getData('post_id'),
             ];
-            $received_data = $this->request->getData();
 
             if ($this->Favorites->deleteAll($param)) {
                 $count = $this->Favorites->countFavorite($this->request->getData('post_id'))->count();

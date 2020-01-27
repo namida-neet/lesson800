@@ -19,10 +19,6 @@ class PostsController extends AppController
 
         $this->loadComponent('Paginator');
 
-        // $this->loadModel('Users');
-        $this->loadModel('Favorites');
-        $this->loadModel('Stars');
-
         $this->set('authuser', $this->Auth->user());
 
         $this->viewBuilder()->setLayout('minibbs');
