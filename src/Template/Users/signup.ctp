@@ -30,13 +30,13 @@
 <div>
 <label for="icon" class="label-name">icon</label>
     <div class="user-icon-dnd-wrapper">
-        <div id="preview_field"></div>
-        <div id="drop_area">drag and drop<br>or<br>click here.</div>
-        <div id="icon_clear_button">X</div>
         <?= $this->Form->file('icon', [
             'id' => 'input_file',
             'accept' => 'image/*',
         ]) ?>
+        <div id="preview_field"></div>
+        <div id="drop_area">drag and drop<br>or<br>click here.</div>
+        <div id="icon_clear_button">X</div>
     </div>
 </div>
 <?= $this->Form->hidden('role',[
