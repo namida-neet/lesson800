@@ -16,7 +16,7 @@ $(function () {
 
   // ドラッグアンドドロップを使用する場合
   // File APIに対応しているか確認
-  if (window.File && window.FileReader && window.FileList && window.Blob) {
+  // if (window.File && window.FileReader && window.FileList && window.Blob) {
 
     // ドラッグしている要素がドロップ領域に入ったとき・領域にある間
     $('#drop_area').on('dragenter dragover', function (event) {
@@ -47,7 +47,7 @@ $(function () {
       handleFiles($('#input_file')[0].files);
     });
 
-    //drop_area以外でファイルがドロップされた場合、ファイルが開いてしまうのを防ぐ
+    // drop_area以外でファイルがドロップされた場合、ファイルが開いてしまうのを防ぐ
     $(document).on('dragenter', function (event) {
       event.stopPropagation();
       event.preventDefault();
@@ -62,9 +62,9 @@ $(function () {
     });
 
     // File APIに対応していない場合
-  } else {
-    $('#drop_area').innerHTML = 'click here.';
-  }
+  // } else {
+  //   $('#drop_area').innerHTML = 'click here.';
+  // }
 
   // 選択された画像ファイルの操作
   function handleFiles(files) {
