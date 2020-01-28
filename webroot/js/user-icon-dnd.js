@@ -11,10 +11,7 @@ $(function () {
       $('#input_file').val('');
       return;
     }
-
     handleFiles(this.files);
-
-    $('#drop_area').hide();
   });
 
   // ドラッグアンドドロップを使用する場合
@@ -47,10 +44,7 @@ $(function () {
         $('#input_file').val('');
         return;
       }
-
       handleFiles($('#input_file')[0].files);
-
-      $('#drop_area').hide();
     });
 
     //drop_area以外でファイルがドロップされた場合、ファイルが開いてしまうのを防ぐ
@@ -74,15 +68,19 @@ $(function () {
 
   // 選択された画像ファイルの操作
   function handleFiles(files) {
-    $('#icon_clear_button').show();
-
     var file = files[0];
     var imageType = 'image.*';
 
+    // ファイルが画像が確認する
     if (! file.type.match(imageType)) {
       alert('画像を選択してください');
+      $('#input_file').val('');
+      $('#drop_area').css('border', '1px dashed #aaa');
       return;
     }
+
+    $('#drop_area').hide();
+    $('#icon_clear_button').show();
 
     var img = document.createElement('img');
     var reader = new FileReader();
