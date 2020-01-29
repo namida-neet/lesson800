@@ -5,10 +5,6 @@ namespace App\Controller;
 use App\Controller\AppController;
 use Cake\Event\Event;
 
-/**
- * PostsController
- */
-
 class LoginController extends AppController
 {
     public function beforeFilter(Event $event)

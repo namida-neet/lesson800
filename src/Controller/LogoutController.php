@@ -4,9 +4,6 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 
-/**
- * PostsController
- */
 
 class LogoutController extends AppController
 {
