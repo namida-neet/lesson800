@@ -1,6 +1,6 @@
-<?php if ($this->request->action === 'login') : ?>
+<?php if ($this->request->controller === 'Login') : ?>
   <h1>
-    <?= $this->Html->link(__('Login'), ['controller' => 'Users', 'action' => 'login']) // 変更する ?>
+    <?= $this->Html->link(__('Login'), ['controller' => 'Login', 'action' => 'index']) // 変更する ?>
   </h1>
 <?php elseif ($this->request->action === 'signup') : ?>
   <h1>
@@ -12,16 +12,16 @@
   </h1>
 <?php endif; ?>
 
-<?php if ($this->request->action === 'login') : ?>
+<?php if ($this->request->controller === 'Login') : ?>
   <div class="header-button">
     <?= $this->Html->link(__('Sign up'), ['controller' => 'Users', 'action' => 'signup']) ?>
   </div>
 <?php elseif ($this->request->action === 'signup') : ?>
   <div class="header-button">
-    <?= $this->Html->link(__('Login'), ['controller' => 'Users', 'action' => 'login']) ?>
+    <?= $this->Html->link(__('Login'), ['controller' => 'Login', 'action' => 'index']) ?>
   </div>
 <?php else : ?>
   <div class="header-button">
-    <?= $this->Html->link(__('Logout'), ['controller' => 'Users', 'action' => 'logout']) ?>
+    <?= $this->Html->link(__('Logout'), ['controller' => 'Logout', 'action' => 'index']) ?>
   </div>
 <?php endif; ?>

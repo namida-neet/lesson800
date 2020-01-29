@@ -134,7 +134,7 @@ class PostsController extends AppController
      * @param int $id メッセージID
      * @return \Cake\Http\Response|null
      */
-    public function cancel(int $id = null)
+    public function delete(int $id = null)
     {
         $this->request->allowMethod(['post']);
 

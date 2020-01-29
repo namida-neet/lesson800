@@ -17,30 +17,10 @@ class UsersController extends AppController
     {
         parent::beforeFilter($event);
         $this->Auth->allow([
-            'login',
             'signup',
-            'logout',
         ]);
 
         $this->viewBuilder()->setLayout('minibbs');
-    }
-
-    public function login()
-    {
-        if ($this->request->is('post')) {
-            $user = $this->Auth->identify();
-            if ($user) {
-                $this->Auth->setUser($user);
-                return $this->redirect($this->Auth->redirectUrl());
-            }
-            $this->Flash->error(__('Invalid username or password, try again'));
-        }
-    }
-
-    public function logout()
-    {
-        $this->request->session()->destroy();
-        return $this->redirect($this->Auth->logout());
     }
 
     public function signup()
@@ -78,7 +58,8 @@ class UsersController extends AppController
                     $this->request->session()->destroy();
 
                     return $this->redirect([
-                        'action' => 'login',
+                        'controller' => 'Login',
+                        'action' => 'index',
                     ]);
                 }
                 $this->Flash->error(__('The user could not be saved. Please, try again.'));

@@ -52,13 +52,21 @@ class AppController extends Controller
         //$this->loadComponent('Security');
 
         $this->loadComponent('Auth', [
+            'loginAction' => [
+                'controller' => 'Login',
+                'action' => 'index',
+            ],
             'loginRedirect' => [
                 'controller' => 'Posts',
                 'action' => 'index',
             ],
             'logoutRedirect' => [
-                'controller' => 'Users',
-                'action' => 'login',
+                'controller' => 'Logout',
+                'action' => 'index',
+            ],
+            'unauthorizedRedirect' => [
+                'controller' => 'Login',
+                'action' => 'index',
             ],
             'authError' => 'Please login.',
         ]);
@@ -67,8 +75,7 @@ class AppController extends Controller
     public function beforeFilter(Event $event)
     {
         $this->Auth->allow([
-            'login',
-            'signup',
+            'display',
         ]);
     }
 
