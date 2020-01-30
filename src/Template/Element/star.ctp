@@ -23,7 +23,7 @@
     ?>
     <?= $this->Form->button('', [
         'class' => 'fas fa-minus-circle',
-        'name' => 'delete'
+        'name' => 'zero'
     ]) ?>
     <?= $this->Form->button('', [
         'class' => 'far fa-smile',

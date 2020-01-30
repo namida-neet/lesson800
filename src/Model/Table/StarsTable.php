@@ -85,4 +85,19 @@ class StarsTable extends Table
 
         return $rules;
     }
+
+    /**
+     * StarsテーブルからログインしているユーザーIDとポストIDに一致したレコードを取得
+     *
+     * @param int $user_id, int $post_id
+     * @return \Cake\ORM\Query $query
+     */
+    public function findStar(int $user_id, int $post_id)
+    {
+        $query = $this->find();
+        $query
+            ->where(['user_id' => $user_id,])
+            ->andWhere(['post_id' => $post_id]);
+        return $query;
+    }
 }

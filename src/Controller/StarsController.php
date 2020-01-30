@@ -55,46 +55,54 @@ class StarsController extends AppController
     /**
      * Edit method
      *
-     * @param string|null $id Star id.
-     * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     * @param
+     * @return \Cake\Http\Response|null
      */
-    public function edit($id = null)
+    public function edit()
     {
-        $star = $this->Stars->get($id, [
-            'contain' => [],
-        ]);
+        $this->autoRednder = false;
+
+        $authuserId = $this->request->getData('user_id');
+        $postId = $this->request->getData('post_id');
+
+        $star = $this->Stars->findStar($authuserId, $postId)
+            ->first();
+
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $star = $this->Stars->patchEntity($star, $this->request->getData());
-            if ($this->Stars->save($star)) {
-                $this->Flash->success(__('The star has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
+            if (isset($this->request->data['one'])) {
+                $this->Stars->updateAll([
+                    'star_score' => 1,
+                ], [
+                    'user_id' => $authuserId,
+                    'post_id' => $postId,
+                ]);
+            } elseif (isset($this->request->data['two'])) {
+                $this->Stars->updateAll([
+                    'star_score' => 2,
+                ], [
+                    'user_id' => $authuserId,
+                    'post_id' => $postId,
+                ]);
+            } elseif (isset($this->request->data['three'])) {
+                $this->Stars->updateAll([
+                    'star_score' => 3,
+                ], [
+                    'user_id' => $authuserId,
+                    'post_id' => $postId,
+                ]);
+            } elseif (isset($this->request->data['zero'])) {
+                $this->Stars->updateAll([
+                    'star_score' => 0,
+                ], [
+                    'user_id' => $authuserId,
+                    'post_id' => $postId,
+                ]);
             }
-            $this->Flash->error(__('The star could not be saved. Please, try again.'));
+            return $this->redirect([
+                'controller' => 'Posts',
+                'action' => 'index',
+            ]);
         }
-        $users = $this->Stars->Users->find('list', ['limit' => 200]);
-        $posts = $this->Stars->Posts->find('list', ['limit' => 200]);
-        $this->set(compact('star', 'users', 'posts'));
     }
 
-    /**
-     * Delete method
-     *
-     * @param string|null $id Star id.
-     * @return \Cake\Http\Response|null Redirects to index.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function delete($id = null)
-    {
-        $this->request->allowMethod(['post', 'delete']);
-        $star = $this->Stars->get($id);
-        if ($this->Stars->delete($star)) {
-            $this->Flash->success(__('The star has been deleted.'));
-        } else {
-            $this->Flash->error(__('The star could not be deleted. Please, try again.'));
-        }
-
-        return $this->redirect(['action' => 'index']);
-    }
 }
