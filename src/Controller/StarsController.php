@@ -14,41 +14,11 @@ use Cake\Event\Event;
  */
 class StarsController extends AppController
 {
-    public function beforeFilter(Event $event)
-    {
-        parent::beforeFilter($event);
-        $this->request->allowMethod(['post']);
-    }
-    /**
-     * Index method
-     *
-     * @return \Cake\Http\Response|null
-     */
-    public function index()
-    {
-        $this->paginate = [
-            'contain' => ['Users', 'Posts'],
-        ];
-        $stars = $this->paginate($this->Stars);
-
-        $this->set(compact('stars'));
-    }
-
-    /**
-     * View method
-     *
-     * @param string|null $id Star id.
-     * @return \Cake\Http\Response|null
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function view($id = null)
-    {
-        $star = $this->Stars->get($id, [
-            'contain' => ['Users', 'Posts'],
-        ]);
-
-        $this->set('star', $star);
-    }
+    // public function beforeFilter(Event $event)
+    // {
+    //     parent::beforeFilter($event);
+    //     $this->request->allowMethod(['post']);
+    // }
 
     /**
      * Add method
@@ -57,19 +27,29 @@ class StarsController extends AppController
      */
     public function add()
     {
+        $this->autoRender = false;
+
         $star = $this->Stars->newEntity();
+
         if ($this->request->is('post')) {
-            $star = $this->Stars->patchEntity($star, $this->request->getData());
+            $star->user_id = $this->request->getData('user_id');
+            $star->post_id = $this->request->getData('post_id');
+
+            if (isset($this->request->data['one'])) {
+                $star->star_score = 1;
+            } elseif (isset($this->request->data['two'])) {
+                $star->star_score = 2;
+            } elseif (isset($this->request->data['three'])) {
+                $star->star_score = 3;
+            }
+
             if ($this->Stars->save($star)) {
                 $this->Flash->success(__('The star has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['controller' => 'Posts', 'action' => 'index']);
             }
             $this->Flash->error(__('The star could not be saved. Please, try again.'));
         }
-        $users = $this->Stars->Users->find('list', ['limit' => 200]);
-        $posts = $this->Stars->Posts->find('list', ['limit' => 200]);
-        $this->set(compact('star', 'users', 'posts'));
     }
 
     /**
