@@ -116,7 +116,7 @@ class PostsTable extends Table
         $query = $this->find();
         $query
             ->contain(['Users', 'Favorites', 'Stars'])
-            ->select(['star_score' => $query->func()->avg('Stars.star_score')])
+            ->select(['stars_score' => $query->func()->avg('Stars.star_score')])
             ->leftJoinWith('Stars')
             ->group(['Posts.id'])
             ->enableAutoFields(true);
