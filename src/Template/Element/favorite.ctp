@@ -4,7 +4,7 @@
 <?php else : ?>
     <div class="favorite hide" id="addfavorite<?php echo h($minibbsPost->id) ?>">
 <?php endif; ?>
-        <?= $this->Form->create('null', [
+        <?= $this->Form->create(null, [
             'url' => [
                 'controller' => 'Favorites',
                 'action' => 'add',
@@ -25,7 +25,7 @@
 <?php else : ?>
     <div class="favorite hide" id="deletefavorite<?php echo h($minibbsPost->id) ?>">
 <?php endif; ?>
-        <?= $this->Form->create('null', [
+        <?= $this->Form->create(null, [
             'url' => [
                 'controller' => 'Favorites',
                 'action' => 'delete',

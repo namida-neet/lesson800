@@ -539,17 +539,8 @@ li {
     text-decoration: none;
     cursor: pointer;
 }
-.star {
-    margin-left: 16px;
-}
-.star a {
-    color: #333;
-    font-size: 20px;
-    text-decoration: none;
-}
 
-.favCount,
-.starAverage {
+.favCount {
     position: relative;
     display: inline-block;
     margin-left: 14px;
@@ -557,8 +548,34 @@ li {
     border: 1px solid #777;
     border-radius: 4px;
     background: #fafafa;
-    color: #777;
-    font-size: 14px;
+    color: #333;
+    font-size: 16px;
+}
+
+.star {
+    margin-left: 16px;
+    font-size: 20px;
+}
+
+.star button {
+    border-style: none;
+    background-color: inherit;
+    color: #aaa;
+    font-size: 20px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.starAverage {
+    position: relative;
+    display: inline-block;
+    margin-left: 14px;
+    padding: 2px 5px;
+    border: 1px solid #777;
+    border-radius: 4px;
+    background: #fafafa;
+    color: #E5A83F;
+    font-size: 20px;
 }
 
 .favCount:before,
