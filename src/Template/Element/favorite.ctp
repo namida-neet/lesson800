@@ -41,10 +41,6 @@
         ]) ?>
         <?= $this->Form->end() ?>
     </div>
-<p class="favCount" id="favCount<?php echo h($minibbsPost->id) ?>">
-    <?php if (!isset($minibbsPost->favorites_count)) : ?>
-        0
-    <?php else : ?>
-        <?= $this->Number->format($minibbsPost->favorites_count) ?>
-    <?php endif; ?>
-</p>
+    <p class="favCount" id="favCount<?php echo h($minibbsPost->id) ?>">
+        <?= $this->Number->format(count($minibbsPost->favorites)) ?>
+    </p>
