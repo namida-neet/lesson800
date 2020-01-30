@@ -48,5 +48,8 @@
             ]) ?>
         </p>
         <?= $this->element('favorite', ['minibbsPost' => $minibbsPost]) ?>
+        <p>
+            <?= $this->Number->format($minibbsPost->stars_score) ?>
+        </p>
     </div><!-- reaction-tools -->
 </div><!-- msg -->
