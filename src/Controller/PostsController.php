@@ -44,6 +44,7 @@ class PostsController extends AppController
         if ($this->request->is('post')) {
             $post = $this->Posts->patchEntity($post, $this->request->getData()); // 既存のエンティティにマージ
 
+            $post->messages = $this->request->getData('messages') . '〜';
             $post->user_id = $this->Auth->user('id');
 
             if (! isset($post->reply_message_id)) {
