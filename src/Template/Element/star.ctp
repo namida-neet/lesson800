@@ -21,10 +21,18 @@
         echo $this->Form->hidden('user_id', ['value' => $authuser['id']]);
         echo $this->Form->hidden('post_id', ['value' => $minibbsPost->id]);
     ?>
-    <?= $this->Form->button('', [
-        'class' => 'fas fa-minus-circle',
-        'name' => 'zero'
-    ]) ?>
+    <?php if ($searchStar === false) : ?>
+        <?= $this->Form->button('', [
+            'class' => 'fas fa-minus-circle',
+            'name' => 'zero',
+            'disabled' => 'disabled',
+        ]) ?>
+    <?php else : ?>
+        <?= $this->Form->button('', [
+            'class' => 'fas fa-minus-circle',
+            'name' => 'zero',
+        ]) ?>
+    <?php endif; ?>
     <?= $this->Form->button('', [
         'class' => 'far fa-smile',
         'name' => 'one'
