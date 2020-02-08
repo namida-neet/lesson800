@@ -68,47 +68,4 @@ class FavoritesController extends AppController
         }
     }
 
-    // 使わないことにした
-    public function edit()
-    {
-        $authuserId = $this->request->getData('user_id');
-        $postId = $this->request->getData('post_id');
-
-        $findFavorite = $this->Favorites->find()
-            ->where(['user_id' => $authuserId])
-            ->andWhere(['post_id' => $postId])
-            ->first();
-        if ($findFavorite->favorite_score === 1) {
-            if ($this->Favorites->updateAll([
-                'favorite_score' => 0,
-            ], [
-                'user_id' => $authuserId,
-                'post_id' => $postId
-            ])) {
-                $this->Flash->success(__('The favorite has been saved.'));
-
-                return $this->redirect([
-                    'controller' => 'Posts',
-                    'action' => 'index',
-                ]);
-            }
-            $this->Flash->error(__('The favorite could not be saved. Please, try again.'));
-
-        } elseif ($findFavorite->favorite_score === 0) {
-            if ($this->Favorites->updateAll([
-                'favorite_score' => 1,
-            ], [
-                'user_id' => $authuserId,
-                'post_id' => $postId
-            ])) {
-                $this->Flash->success(__('The favorite has been saved.'));
-
-                return $this->redirect([
-                    'controller' => 'Posts',
-                    'action' => 'index',
-                ]);
-            }
-            $this->Flash->error(__('The favorite could not be saved. Please, try again.'));
-        }
-    }
 }
